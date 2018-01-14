@@ -116,27 +116,25 @@ cont();
             }
             ?>
             <div class="row">
-                <div class="col-md-5 col-md-offset-4" style="margin-top:5px">
-            <?php
-            $loginURL = $helper->getLoginUrl($redirectURL, $fbPermissions);
-            // Render facebook login button
-            $output = '<a href="' . htmlspecialchars($loginURL) . '"><img class=\"img-responsive\" src="face/images/face2.png"></a>';
-            echo $output;
-            ?>
-                    <div style="margin-bottom:5px">
-            <?php
-            require_once("g/lo.php");
-            ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-5 col-md-offset-4">
-                <form method ="post" action=" " class="form-horizontal" role="form">
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="col-md-4 col-lg-4 col-sm-12"></div>
+                    <div class="col-md-4 col-lg-4 col-sm-12" style="margin-top:5px">
+                        <?php
+                        $loginURL = $helper->getLoginUrl($redirectURL, $fbPermissions);
+                        // Render facebook login button
+                        $output = '<a href="' . htmlspecialchars($loginURL) . '"><img class=\"img-responsive\" src="face/images/face2.png"></a>';
+                        echo $output;
+                        ?>
+                        <div style="margin-bottom:5px">
+                            <?php
+                            require_once("g/lo.php");
+                            ?>
+                        </div>
+                        
+                        <form method ="post" action=" " class="form-horizontal" role="form">
                     <fieldset>
                         <div class="form-group">
-                            <div class="col-md-7 input-group al">
+                            <div class="col-md-7 col-lg-7 col-sm-11 input-group al">
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-user"></span>
                                 </span>
@@ -144,7 +142,7 @@ cont();
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-7 input-group al">
+                            <div class="col-md-7 col-lg-7 col-sm-11 input-group al">
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-lock"></span>
                                 </span>
@@ -152,21 +150,29 @@ cont();
                             </div>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-default col-md-2 al" name="submit" onclick="valid()">Submit</button>
-                            <a href="forget.php" class="btn btn-default col-md-4  col-md-offset-1">Forget password</a>
+                            <button type="submit" class="btn btn-default col-md-6 col-lg-6 col-sm-11" name="submit">Submit</button>
+                            <a href="forget.php" class="btn btn-default col-md-6 col-lg-6 col-sm-11">Forget password</a>
                         </div>
                         <div class="form-group">
                             <a href="registration.php" class="btn btn-default col-md-6  col-md-offset-1">Don't have an account?Register</a>
                         </div>
                     </fieldset>
                 </form>
+                        
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-12"></div>
+                </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5 col-md-offset-4">
+                
             </div>					
         </div>
         <!--FOOTER-->
         <footer>
-<?php
-include("incl/footer.php");
-?>
+            <?php
+            include("incl/footer.php");
+            ?>
         </footer>
     </div>	
 </body>

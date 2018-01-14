@@ -531,7 +531,7 @@ cont();
                         </fieldset>	
                         <div class="form-group">
                             <legend id="msg"></legend>
-                            <?php echo"<input type=\"submit\" name=\"submit\" class=\" btn btn-default col-md-offset-2\"  value=\"Submit\" onClick=\"return valid();\"/>"; ?>
+                            <?php echo"<input type=\"submit\" name=\"submit\" class=\" btn btn-default col-md-offset-2\"  value=\"Submit\"/>"; ?>
                         </div>
                     </form>
                     </div>
