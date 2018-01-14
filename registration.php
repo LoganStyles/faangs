@@ -45,33 +45,30 @@ cont();
         <!--FORM BODY-->
         <div class="container-fluild">
             <div class="row">
-                <div class="col-md-5 col-md-offset-4" style="margin-top:10px;">
-                    <?php
-                    $loginURL = $helper->getLoginUrl($redirectURL, $fbPermissions);
-                    // Render facebook login button
-                    $output = '<a href="' . htmlspecialchars($loginURL) . '"><img src="face/images/face2.png"></a>';
-                    echo $output;
-                    ?>
-                    <?php
-                    if (!empty($_SESSION['userdetails'])) {
-                        header('Location: home.php');
-                    }
-                    $loginUrl = $instagram->getLoginUrl();
-                    //echo "<a class=\"button\" href=\"$loginUrl\">Sign in with Instagram</a>";
-                    ?>
-                    <img src="images/reg.png" class="img-responsive goo"/>
-                    <?php
-                    require_once("g/lo.php");
-                    ?>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-7 col-md-offset-4">
-                    <?php
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="col-md-4 col-lg-4 col-sm-12"></div>
+                    <div class="col-md-4 col-lg-4 col-sm-12" style="margin-top:10px;">
+                        <?php
+                        $loginURL = $helper->getLoginUrl($redirectURL, $fbPermissions);
+                        // Render facebook login button
+                        $output = '<a href="' . htmlspecialchars($loginURL) . '"><img class="img-responsive" src="face/images/face2.png"></a>';
+                        echo $output;
+                        ?>
+                        <?php
+                        if (!empty($_SESSION['userdetails'])) {
+                            header('Location: home.php');
+                        }
+                        $loginUrl = $instagram->getLoginUrl();
+                        //echo "<a class=\"button\" href=\"$loginUrl\">Sign in with Instagram</a>";
+                        ?>
+                        <img src="images/reg.png" class="img-responsive goo"/>
+                        <?php
+                        require_once("g/lo.php");
+                        
                     if (isset($_POST['submit'])) {
                         $model = test_input($_POST['model']);
                         $_SESSION['model'] = $model;
-                        if ($model == "NO") {
+                        if ($model == "NO") {//set default values
                             $_POST['height'] = "not a model";
                             $_POST['waist'] = "not a model";
                             $_POST['shoe'] = "not a model";
@@ -80,6 +77,7 @@ cont();
                             $_POST['chest'] = "not a model";
                             $_POST['shoulder'] = "not a model";
                         }
+                        //store data temporily for processing
                         $_SESSION['password'] = test_input($_POST['password']);
                         $_SESSION['fullname'] = test_input($_POST['fullname']);
                         $_SESSION['usname'] = test_input($_POST['username']);
@@ -108,7 +106,7 @@ cont();
                         $phonenumber = test_input($_POST['phonenumber']);
                         $query1 = "select * from registration where username='$username'";
                         $result1 = mysql_query($query1);
-                        if (mysql_num_rows($result1) > 0) {
+                        if (mysql_num_rows($result1) > 0) {//username already exising
                             array_push($missing, $username);
                         }
                         $query1 = "select * from registration where email='$email'";
@@ -158,6 +156,7 @@ cont();
                             $password = md5($password);
                             //$confirmpassword=test_input($_POST['confirmpassword']);
                             $phonenumber = test_input($_POST['phonenumber']);
+                            $referral = $_POST['referral'];
                             $country = test_input($_POST['country']);
                             $country = strtoupper($country);
                             $state = test_input($_POST['state']);
@@ -179,21 +178,19 @@ cont();
                             $accnumber = test_input($_POST['accnumber']);
                             //index();
                             $query = " INSERT into  registration(fullname,username,password,email,phonenumber,age,gender,bio,model,country,state,
-                                    bankname,accountname,accountnumber,status,height,waist,shoe,hip,chest,shoulder,contestname)
-                                    VALUES
-                                    ('$fullname','$username','$password','$email','$phonenumber','$age','$gender','$bio','$model','$country','$state','$bank','$accname','$accnumber',
-                                    'not confirm','$height','$waist','$shoe','$hip','$chest','$shoulder','no'
-                                    )";
+                                    bankname,accountname,accountnumber,status,height,waist,shoe,hip,chest,shoulder,contestname,referral)
+                                    VALUES('$fullname','$username','$password','$email','$phonenumber','$age','$gender','$bio','$model','$country','$state','$bank','$accname','$accnumber',
+                                    'not confirm','$height','$waist','$shoe','$hip','$chest','$shoulder','no','$referral')";
                             $k = mysql_query($query);
                             if ($k) {
                                 //email activation
                                 $headers = "From:okomemmanuel1@gmail.com" . "\r\n";
                                 $subject = 'Signup | Verification';
-                                $message = "
-												<p>Thanks for signing up!
-												Your account has been created, 
-												</p>
-												Please click this link to activate your account:http://faangs.com/verify.php?user=$username";
+                                $message = "<p>Thanks for signing up!
+                                            Your account has been created, 
+                                            </p>
+                                            Please click this link to activate your account:http://faangs.com/verify.php?user=$username";
+                                
                                 $mail->sendmail("$email", "$message", "$subject");
                                 $nam = "<H4>AN ACTIVATION LINK HAS BEEN SENT TO YOUR EMAIL</H4>";
                                 echo "<div class=\"alert alert-success\">";
@@ -231,14 +228,15 @@ cont();
                             }
                         }
                     }
-                    ?>					
-                    <form class="form-horizontal" role="form" method="post" action="" id="form1">
+                    ?>	
+                        
+                        <form class="form-horizontal" role="form" method="post" action="" id="form1">
                         <div style="background:white;margin-bottom:5px;">
                         </div>
                         <fieldset>
-                            <legend>personal data</legend>
+                            <legend>Personal Data</legend>
                             <div class="form-group">
-                                <div class="col-md-5 input-group">
+                                <div class="col-md-7 col-lg-7 col-sm-11 input-group">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-lock"></span>
                                     </span>
@@ -254,7 +252,7 @@ cont();
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-5 input-group">
+                                <div class="col-md-7 col-lg-7 col-sm-11 input-group">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-user"></span>
                                     </span>
@@ -269,7 +267,7 @@ cont();
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-5 input-group">
+                                <div class="col-md-7 col-lg-7 col-sm-11 input-group">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-user"></span>
                                     </span>
@@ -284,7 +282,7 @@ cont();
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-5 input-group">
+                                <div class="col-md-7 col-lg-7 col-sm-11 input-group">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-phone"></span>
                                     </span>
@@ -299,10 +297,10 @@ cont();
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-5 input-group">
+                                <div class="col-md-7 col-lg-7 col-sm-11 input-group">
                                     <select class="form-control text_field" id="country" name="country" onchange="pop(this.value)">
                                         <OPTION>SELECT YOUR COUNTRY</OPTION>
-                                        <?PHP
+                                        <?php
                                         $country = "select * from countries";
                                         $rcount = mysql_query($country);
                                         while ($r = mysql_fetch_array($rcount)) {
@@ -313,14 +311,14 @@ cont();
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-5 input-group">
+                                <div class="col-md-7 col-lg-7 col-sm-11 input-group">
                                     <select class="form-control text_field" id="state" name="state">
                                         <option>select your state</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-5 input-group">
+                                <div class="col-md-7 col-lg-7 col-sm-11 input-group">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -335,7 +333,7 @@ cont();
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-5 input-group">
+                                <div class="col-md-7 col-lg-7 col-sm-11 input-group">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-envelope"></span>
                                     </span>
@@ -364,7 +362,7 @@ cont();
                                 ?>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-5 input-group">
+                                <div class="col-md-7 col-lg-7 col-sm-11 input-group">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </span>
@@ -379,6 +377,22 @@ cont();
                                     ?>
                                 </div>
                             </div>
+                            
+                            <div class="form-group">
+                                <div class="col-md-7 col-lg-7 col-sm-11 input-group">
+                                    <select class="form-control text_field" id="referral" name="referral">
+                                        <OPTION value="">SELECT REFERRAL CODE -- NONE --</OPTION>
+                            <?php
+                            $subadmin = "select * from subadmin";
+                            $rcount = mysql_query($subadmin);
+                            while ($r = mysql_fetch_array($rcount)) {
+                                echo "<option value=\"{$r['username']}\">{$r['username']}</option>";
+                            }
+                            ?>
+                                    </select>
+                                </div>
+                            </div>
+                            
                         </fieldset>	
                         <fieldset>
                             <legend>model info</legend>
@@ -399,7 +413,7 @@ cont();
                             </div>
                             <div id="tes">
                                 <div class="form-group">
-                                    <div class="col-md-5">
+                                    <div class="col-md-7 col-lg-7 col-sm-11 input-group">
                                         <?php
                                         if (isset($_SESSION["height"])) {
                                             $height = $_SESSION["height"];
@@ -410,7 +424,7 @@ cont();
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-md-5">
+                                    <div class="col-md-7 col-lg-7 col-sm-11 input-group">
                                         <?php
                                         if (isset($_SESSION["waist"])) {
                                             $waist = $_SESSION["waist"];
@@ -421,7 +435,7 @@ cont();
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-md-5">
+                                    <div class="col-md-7 col-lg-7 col-sm-11 input-group">
                                         <?php
                                         if (isset($_SESSION["shoe"])) {
                                             $shoe = $_SESSION["shoe"];
@@ -432,7 +446,7 @@ cont();
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-md-5">
+                                    <div class="col-md-7 col-lg-7 col-sm-11 input-group">
                                         <?php
                                         if (isset($_SESSION["hip"])) {
                                             $hip = $_SESSION["hip"];
@@ -443,7 +457,7 @@ cont();
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-md-5">
+                                    <div class="col-md-7 col-lg-7 col-sm-11 input-group">
                                         <?php
                                         if (isset($_SESSION["chest"])) {
                                             $chest = $_SESSION["chest"];
@@ -454,7 +468,7 @@ cont();
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-md-5">
+                                    <div class="col-md-7 col-lg-7 col-sm-11 input-group">
                                         <?php
                                         if (isset($_SESSION["shoulder"])) {
                                             $shoulder = $_SESSION["shoulder"];
@@ -471,7 +485,7 @@ cont();
                         <fieldset id="third">
                             <legend>Account information</legend>
                             <div class="form-group">
-                                <div class="col-md-5 input-group">
+                                <div class="col-md-7 col-lg-7 col-sm-11 input-group">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-user"></span>
                                     </span>
@@ -485,7 +499,7 @@ cont();
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-5 input-group">
+                                <div class="col-md-7 col-lg-7 col-sm-11 input-group">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-inbox"></span>
                                     </span>
@@ -499,7 +513,7 @@ cont();
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-5 input-group">
+                                <div class="col-md-7 col-lg-7 col-sm-11 input-group">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-usd"></span>
                                     </span>
@@ -520,8 +534,12 @@ cont();
                             <?php echo"<input type=\"submit\" name=\"submit\" class=\" btn btn-default col-md-offset-2\"  value=\"Submit\" onClick=\"return valid();\"/>"; ?>
                         </div>
                     </form>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-12"></div>
                 </div>
+                
             </div>
+            
         </div>
         <!--FOOTER-->
         <footer>
