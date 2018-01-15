@@ -10,7 +10,7 @@ require_once 'ins/instagram.class.php';
 require_once'ins/instagram.config.php';
 cont();
 ?>
-<script type="text/javascript" src="js/cou.js"></script>
+
 <style type="text/css">
     * {
         margin: 0px;
@@ -43,11 +43,11 @@ cont();
         <!--end of header line-->
         <!---content of your code-->
         <!--FORM BODY-->
-        <div class="container-fluild">
-            <div class="row">
+        <div class="container">
+<!--            <div class="row">
                 <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="col-md-4 col-lg-4 col-sm-12"></div>
-                    <div class="col-md-4 col-lg-4 col-sm-12" style="margin-top:10px;">
+                    <div class="col-md-4 col-lg-4 col-sm-12" style="margin-top:10px;">-->
                         <?php
                         $loginURL = $helper->getLoginUrl($redirectURL, $fbPermissions);
                         // Render facebook login button
@@ -235,12 +235,11 @@ cont();
                         </div>
                         <fieldset>
                             <legend>Personal Data</legend>
-                            <div class="form-group">
-                                <div class="col-md-7 col-lg-7 col-sm-11 input-group">
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-lock"></span>
-                                    </span>
-                                    <?php
+                                                        
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="password">Password</label>
+                                     <?php
                                     if (isset($_SESSION["password"])) {
                                         $password = $_SESSION["password"];
                                     } else {
@@ -248,44 +247,37 @@ cont();
                                     }
                                     echo"<input type=\"text\" class=\"form-control\" id=\"pwd\" name=\"password\" placeholder=\"enter password\"  value=\"$password\" required/>";
                                     ?>
-                                    <span id="palert"></span>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-7 col-lg-7 col-sm-11 input-group">
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-user"></span>
-                                    </span>
+                                
+                                <div class="form-group col-md-6">
+                                    <label for="fullname">Fullname</label>
                                     <?php
                                     if (isset($_SESSION["fullname"])) {
                                         $nam = $_SESSION["fullname"];
                                     } else {
                                         $nam = "";
                                     }
-                                    echo"	<input type=\"text\" placeholder=\"enter your fullname\" class=\"form-control\" name=\"fullname\" value=\"$nam\" required/>";
+                                    echo"<input type=\"text\" placeholder=\"enter your fullname\" class=\"form-control\" name=\"fullname\" value=\"$nam\" required/>";
                                     ?>
                                 </div>
+                                
                             </div>
-                            <div class="form-group">
-                                <div class="col-md-7 col-lg-7 col-sm-11 input-group">
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-user"></span>
-                                    </span>
-                                    <?php
+                            
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="username">Username</label>
+                                     <?php
                                     if (isset($_SESSION["usname"])) {
                                         $usnam = $_SESSION["usname"];
                                     } else {
                                         $usnam = "";
                                     }
-                                    echo"	<input type=\"text\" placeholder=\"enter your username\" class=\"form-control\" name=\"username\" value=\"$usnam\" required/>";
+                                    echo"<input type=\"text\" placeholder=\"enter your username\" class=\"form-control\" name=\"username\" value=\"$usnam\" required/>";
                                     ?>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-7 col-lg-7 col-sm-11 input-group">
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-phone"></span>
-                                    </span>
+                                
+                                <div class="form-group col-md-6">
+                                    <label for="phonenumber">Phone number</label>
                                     <?php
                                     if (isset($_SESSION["phonenumber"])) {
                                         $phoneno = $_SESSION["phonenumber"];
@@ -293,13 +285,17 @@ cont();
                                         $phoneno = "";
                                     }
                                     echo" <input type=\"text\" class=\"form-control text_field\" id=\"pno\" name=\"phonenumber\" placeholder=\"Enter phone number\" value=\"$phoneno\" required/>";
+                                  
                                     ?>
                                 </div>
+                                
                             </div>
-                            <div class="form-group">
-                                <div class="col-md-7 col-lg-7 col-sm-11 input-group">
+                            
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="country">SELECT YOUR COUNTRY</label>
                                     <select class="form-control text_field" id="country" name="country" onchange="pop(this.value)">
-                                        <OPTION>SELECT YOUR COUNTRY</OPTION>
+                                        <OPTION value="NONE">NONE</OPTION>
                                         <?php
                                         $country = "select * from countries";
                                         $rcount = mysql_query($country);
@@ -309,19 +305,19 @@ cont();
                                         ?>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-7 col-lg-7 col-sm-11 input-group">
+                                
+                                <div class="form-group col-md-6">
+                                    <label for="state">STATE</label>
                                     <select class="form-control text_field" id="state" name="state">
                                         <option>select your state</option>
                                     </select>
                                 </div>
+                                
                             </div>
-                            <div class="form-group">
-                                <div class="col-md-7 col-lg-7 col-sm-11 input-group">
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-time"></span>
-                                    </span>
+                            
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="age">AGE</label>
                                     <?php
                                     if (isset($_SESSION["age"])) {
                                         $age = $_SESSION["age"];
@@ -331,12 +327,9 @@ cont();
                                     echo"  <input type=\"text\" class=\"form-control\" id=\"age\" name=\"age\" placeholder=\"Enter your age\" value=\"$age\" required/>";
                                     ?>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-7 col-lg-7 col-sm-11 input-group">
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-envelope"></span>
-                                    </span>
+                                
+                                <div class="form-group col-md-6">
+                                    <label for="age">EMAIL</label>
                                     <?php
                                     if (isset($_SESSION["email"])) {
                                         $email = $_SESSION["email"];
@@ -345,9 +338,13 @@ cont();
                                     }echo"<input type=\"email\" placeholder=\"Enter email address\" class=\"form-control\" name=\"email\"  value=\"$email\" required/>";
                                     ?>
                                 </div>
+                                
                             </div>
-                            <div class="form-group">
-                                <?php
+                            
+                             <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="age">GENDER</label>
+                                    <?php
                                 if (isset($_SESSION["gender"]) and $_SESSION["gender"] == 'Male') {
                                     echo "<label class=\"radio-inline\">";
                                     echo " <input type=\"radio\" name=\"gender\" id=\"gender\" value=\"Male\" checked>Male</label>";
@@ -360,39 +357,39 @@ cont();
                                     echo "<input type=\"radio\" name=\"gender\" id=\"gender2\" value=\"Female\" checked>Female</label>";
                                 }
                                 ?>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-7 col-lg-7 col-sm-11 input-group">
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-pencil"></span>
-                                    </span>
+                                </div>
+                                
+                                <div class="form-group col-md-6">
+                                    <label for="bio">BIO</label>
                                     <?php
                                     if (isset($_SESSION["bio"])) {
                                         $bio = $_SESSION["bio"];
-                                        echo "				<textarea name=\"bio\">$bio</textarea>";
+                                        echo "	<textarea name=\"bio\">$bio</textarea>";
                                     } else {
                                         $bio = "";
                                         echo"	<textarea placeholder=\"Enter brief description about yourself\" class=\"form-control\" name=\"bio\" value=\"\" required ></textarea>";
                                     }
                                     ?>
                                 </div>
+                                
                             </div>
                             
-                            <div class="form-group">
-                                <div class="col-md-7 col-lg-7 col-sm-11 input-group">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="referral">SELECT REFERRAL CODE</label>
                                     <select class="form-control text_field" id="referral" name="referral">
-                                        <OPTION value="">SELECT REFERRAL CODE -- NONE --</OPTION>
-                            <?php
-                            $subadmin = "select * from subadmin";
-                            $rcount = mysql_query($subadmin);
-                            while ($r = mysql_fetch_array($rcount)) {
-                                echo "<option value=\"{$r['username']}\">{$r['username']}</option>";
-                            }
-                            ?>
+                                                    <OPTION value=""> -- NONE --</OPTION>
+                                        <?php
+                                        $subadmin = "select * from subadmin";
+                                        $rcount = mysql_query($subadmin);
+                                        while ($r = mysql_fetch_array($rcount)) {
+                                            echo "<option value=\"{$r['username']}\">{$r['username']}</option>";
+                                        }
+                                        ?>
                                     </select>
                                 </div>
                             </div>
-                            
+                                                        
                         </fieldset>	
                         <fieldset>
                             <legend>model info</legend>
@@ -494,7 +491,7 @@ cont();
                                         $bank = $_SESSION["bank"];
                                     } else {
                                         $bank = "";
-                                    }echo" <input type=\"text\" class=\"form-control\" id=\"bank\" name=\"bank\" placeholder=\"Enter your Bank name\" value=\"$bank\" required/>";
+                                    }echo" <input type=\"text\" class=\"form-control\" id=\"bank\" name=\"bank\" placeholder=\"Enter your Bank name\" value=\"$bank\" />";
                                     ?>
                                 </div>
                             </div>
@@ -508,7 +505,7 @@ cont();
                                         $accname = $_SESSION["accname"];
                                     } else {
                                         $accname = "";
-                                    }echo" <input type=\"text\" class=\"form-control\" id=\"accname\" name=\"accname\" placeholder=\"Enter your account name\"  value=\"$accname\" required/>";
+                                    }echo" <input type=\"text\" class=\"form-control\" id=\"accname\" name=\"accname\" placeholder=\"Enter your account name\"  value=\"$accname\" />";
                                     ?>
                                 </div>
                             </div>
@@ -522,7 +519,7 @@ cont();
                                         $accnumber = $_SESSION["accnumber"];
                                     } else {
                                         $accnumber = "";
-                                    }echo" <input type=\"text\" class=\"form-control\" id=\"accno\" name=\"accnumber\" placeholder=\"Enter your account number\"  value=\"$accnumber\" required/>";
+                                    }echo" <input type=\"text\" class=\"form-control\" id=\"accno\" name=\"accnumber\" placeholder=\"Enter your account number\"  value=\"$accnumber\" />";
                                     ?>
                                 </div>
                             </div>
@@ -534,11 +531,11 @@ cont();
                             <?php echo"<input type=\"submit\" name=\"submit\" class=\" btn btn-default col-md-offset-2\"  value=\"Submit\"/>"; ?>
                         </div>
                     </form>
-                    </div>
+<!--                    </div>
                     <div class="col-md-4 col-lg-4 col-sm-12"></div>
                 </div>
                 
-            </div>
+            </div>-->
             
         </div>
         <!--FOOTER-->
@@ -549,5 +546,6 @@ cont();
             ?>
         </footer>
         <script type ="text/javascript" src="css/form.js"></script>
+        <script type="text/javascript" src="js/cou.js"></script>
     </body>
 </html>

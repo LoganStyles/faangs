@@ -18,7 +18,7 @@ cont();
         <!--end of header line-->
         <!---content of your code-->
         <!--FORM BODY-->
-        <div class="container-fluid">
+        <div class="container">
             <?php
             if (isset($_POST["submit"])) {
                 $username = test_input($_POST['username']);
@@ -115,10 +115,14 @@ cont();
                 $_SESSION['dir'] = 2;
             }
             ?>
-            <div class="row">
-                <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="col-md-4 col-lg-4 col-sm-12"></div>
-                    <div class="col-md-4 col-lg-4 col-sm-12" style="margin-top:5px">
+            <!-- Begin page content -->
+            
+    
+            <!--<div class="row" >-->
+                
+                <!--<div class="col-md-12 col-lg-12 col-sm-12">-->
+                    <!--<div class="col-md-4 col-lg-4 col-sm-12"></div>-->
+                    <!--<div class="col-md-4 col-lg-4 col-sm-12" style="margin-top:5px">-->
                         <?php
                         $loginURL = $helper->getLoginUrl($redirectURL, $fbPermissions);
                         // Render facebook login button
@@ -130,11 +134,34 @@ cont();
                             require_once("g/lo.php");
                             ?>
                         </div>
-                        
                         <form method ="post" action=" " class="form-horizontal" role="form">
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" name="username" placeholder="Enter your username" required>
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" name="password" placeholder="Password" required>
+                              </div>
+                            </div>
+
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <button type="submit" class="btn btn-default" name="submit">Submit</button>
+                                <a href="forget.php" class="btn btn-default col-md-6 col-lg-6 col-sm-11">Forget password</a>
+                              </div>
+                              <div class="form-group col-md-6">
+                                <a href="registration.php" class="btn btn-default col-md-6  col-md-offset-1">Don't have an account?Register</a>
+                              </div>
+                            </div>
+                          </form>
+                        
+                        
+<!--                        <form method ="post" action=" " class="form-horizontal" role="form">
                     <fieldset>
                         <div class="form-group">
-                            <div class="col-md-7 col-lg-7 col-sm-11 input-group al">
+                            <div class="col-md-7 col-lg-7 col-sm-11">
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-user"></span>
                                 </span>
@@ -157,12 +184,12 @@ cont();
                             <a href="registration.php" class="btn btn-default col-md-6  col-md-offset-1">Don't have an account?Register</a>
                         </div>
                     </fieldset>
-                </form>
+                </form>-->
                         
-                    </div>
-                    <div class="col-md-4 col-lg-4 col-sm-12"></div>
-                </div>
-        </div>
+                    <!--</div>-->
+                    <!--<div class="col-md-4 col-lg-4 col-sm-12"></div>-->
+                <!--</div>-->
+        <!--</div>-->
         <div class="row">
             <div class="col-md-5 col-md-offset-4">
                 

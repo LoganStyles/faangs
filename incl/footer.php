@@ -35,7 +35,7 @@
         <div class="clearfix"></div>
     </div>
 </div>-->
-<div class="copy-right-grids">
+<!--<div class="copy-right-grids">
     <div class="container">
         <div class="copy-left">
             <p class="footer-gd">&copy <?php echo date("Y") . " "; ?>faangs.All rights Reserved</p>
@@ -43,4 +43,16 @@
         <div class="clearfix"></div>
     </div>
     <a href="https://seal.beyondsecurity.com/vulnerability-scanner-verification/faangs.com"><img src="https://seal.beyondsecurity.com/verification-images/faangs.com/vulnerability-scanner-2.gif" alt="Website Security Test" border="0" /></a>
-</div>
+</div>-->
+<footer class="footer" style="background-color: #211E1E">
+    <div class="container">
+        <span class="text-muted">&copy <?php echo date("Y") . " "; ?>faangs.All rights Reserved</span>
+        <a href="https://seal.beyondsecurity.com/vulnerability-scanner-verification/faangs.com"><img src="https://seal.beyondsecurity.com/verification-images/faangs.com/vulnerability-scanner-2.gif" alt="Website Security Test" border="0" /></a>
+    
+    </div>
+</footer>
+
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+

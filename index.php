@@ -1,4 +1,5 @@
 <?php
+$pagename="index";
 if (isset($_POST["submit"])) {
     //index();
     $fname = test_input($_POST['fname']);
@@ -225,7 +226,7 @@ if (isset($_SESSION['admin'])) {
                     </div>
                     <div class="row">
                         <div class="col-md-12 col-md-offset-1" style="font-weight:bold;font-size:3em;color:#FFC20F;margin-top:1em; ">
-<?PHP require_once("incl/timer.php"); ?>
+<?php if($pagename=="index") require_once("incl/timer.php"); ?>
                         </div>
                     </div>
                 </div>

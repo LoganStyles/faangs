@@ -124,12 +124,12 @@ cont();
             .head{
                 margin-top:10px;
                 height:60px;
-                width:160px;
+                /*width:160px;*/
                 /*border-style:solid;*/
             }
             .head img{
-                width:100%;
-                height:100%;
+/*                width:100%;
+                height:100%;*/
             }
             .postimg{
                 margin-top:0.6em;
@@ -534,18 +534,15 @@ cont();
                 <!--main area--                                                   post and comment area---->
                 <div class="col-md-4  col-sm-12 col-xs-12 reset" id="post_c">
                     <!-----first row-------->
-                    <div class="col-md-12 col-sm-12 col-xs-12" id="post">
+                    <div class="col-md-12 col-sm-12 col-xs-12 " id="post">
                         <?php
                         $a = "fashion";
                         if (isset($_GET['category'])) {
                             $a = $_GET['category'];
                         }
                         ?>
-                        <form class="navbar-form" role="search" method="post" action="chatprocess.php?category=<?php echo "{$a}" ?>" enctype="multipart/form-data">
-                            <div class="col-md-8 input-group" style="float:left;">
-                                   <!--<span class="input-group-addon">
-                                                           <span class="glyphicon glyphicon-tag"></span>
-                                   </span>-->
+                        <form id="post_form" class="" method="post" action="chatprocess.php?category=<?php echo "{$a}" ?>" enctype="multipart/form-data">
+<!--                            <div class="col-md-8 input-group" style="float:left;">
                                 <textarea placeholder="your opinion really matter say it " class="form-control"
                                           name="post" cols="60" rows="4" required ></textarea>
                             </div>
@@ -557,7 +554,24 @@ cont();
                             <input type="text" id="testfile"></input>
                             <div class="col-md-3" style="float:left;">
                                 <input type="submit" value="post" class="form-control" name="chat"/>
+                            </div>-->
+
+                        <div class="form-row">
+                            <div class="form-group col-md-11">
+                                <label for="post">Post your Opinion</label>
+                                <textarea class="form-control" id="post" rows="3" required></textarea>
+                            </div>                            
+                        </div> 
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="test">Upload Photo</label>
+                                <input type="file" class="form-control-file" id="test">
                             </div>
+                            <div class="form-group col-md-8">
+                                <button class="btn btn-dark" type="submit" form="post_form" name="chat" value="Submit">Post</button>
+                            </div>
+                        </div>
+            
                         </form>
                     </div>
                     <!-----2nd row-------->
@@ -566,8 +580,7 @@ cont();
                         $query1 = "select * from home order by id desc";
                         $result1 = mysql_query($query1);
                         while ($row = mysql_fetch_array($result1)) {
-                            echo"<div class=\" row postimg\">
-								<div class=\"col-md-12\" style=\"margin:0px;padding:0px;\">
+                            echo"<div class=\" row postimg\"><div class=\"col-md-12\" style=\"margin:0px;padding:0px;\">
 										<div class=\"col-md-2 head\">";
                             $user = $row['username'];
                             $query12 = "select * from picture where username='$user' and profile='yes'";
@@ -607,7 +620,7 @@ cont();
                             $mes = $row['post_content'];
                             $mess = strtolower($mes);
                             //echo message div
-                            echo"	<div class=\"col-md-12\" style=\" word-wrap: break-word;text-align:justify;text-transform:capitalize\">{$mess}</div>";
+                            echo"	<div class=\"col-md-12\" style=\"display:block; word-wrap: break-word;text-align:justify;text-transform:capitalize\">{$mess}</div>";
                             //echo //end message div
                             if ($row['image'] != "") {
                                 //echo image  div
@@ -623,7 +636,7 @@ cont();
                             ?>
                             <?php
                             ///////////////////////////////////container for the whole reply////////////////////////////////////////////////				
-                            echo"		<div class=\"col-md-12 com\" style=\"border-style:;background-color:#b2b2b2;box-shadow: 5px 5px;\">";
+                            echo"<div class=\"col-md-12 com\" style=\"border-style:;background-color:#b2b2b2;box-shadow: 5px 5px;\">";
                             ////////////////////////////////////////////////////////////////////////////////////////////////////////////reply
                             reply($messid);
                             //echo $messid;
@@ -643,8 +656,7 @@ cont();
                             } {
                                 $messid = $messid . ".1";
                             }
-                            echo "<input type=\"hidden\" name=\"user\" value=\"$na1\"/>
-													<input type=\"hidden\" name=\"com_id\" value=\"$messid\"/>
+                            echo "<input type=\"hidden\" name=\"user\" value=\"$na1\"/><input type=\"hidden\" name=\"com_id\" value=\"$messid\"/>
 													<input type=\"hidden\" name=\"level\" value=\"1 \"/>
 													<input type=\"text\"name=\"comm\" class=\"form-control\" placeholder=\"make your comment\">
 													<div class=\"input-group-btn\">
@@ -823,6 +835,8 @@ cont();
                 </div>
                 <div class="mainwrapper"></div>
             </body>
+            <script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
             <script>
                 $("#browse").click(function () {
                     $("#test").click();
