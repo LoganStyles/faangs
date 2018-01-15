@@ -1,5 +1,6 @@
 <?php
 $pagename="index";
+
 if (isset($_POST["submit"])) {
     //index();
     $fname = test_input($_POST['fname']);
@@ -32,6 +33,7 @@ require_once("incl/function.php");
 require_once("incl/mail2.php");
 session_start();
 cont();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,8 +41,7 @@ cont();
         <title>FAANGS - Face of Angels- Photo Contest | Home</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8">
-        <meta name="keywords" content="Go Taxi Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-              Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+        <meta name="keywords" content="faangs,models,contestants,photography" />
         <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
         <link rel="stylesheet" href="css/index.css" type="text/css" media="all" />
@@ -76,7 +77,7 @@ cont();
             <div class="w3-header-bottom">
                 <div class="w3layouts-logo">
                     <h1>
-                        <a href="index.php"><img src="images/logo.png"></a>
+                        <a href="index.php"><img class="img-responsive" src="images/logo.png"></a>
                     </h1>
                 </div>
                 <div class="top-nav">
@@ -117,6 +118,7 @@ if (isset($_SESSION['admin'])) {
     echo "<li><a href=\"adminpage.php\" >Dashboard</a></li>";
     echo "<li><a href=\"incl/outs.php\" >Sign-Out</a></li>";
 } ELSE IF (!isset($_SESSION['username'])) {
+    //echo 'inside index';exit;
     echo "<li><a href=\"login.php\" >Login</a></li>";
     echo "<li><a href=\"registration.php\" >Sign-up</a></li>";
 }
@@ -139,7 +141,9 @@ if (isset($_SESSION['admin'])) {
                                                 <!--<a href="#" data-toggle="modal" data-target="#myModal">Participate Now</a>-->
                                                 <script type="text/javascript">
                                                     $(window).on('load', function () {
-                                                        $('#myModal').modal('show');
+                                                        alert('inside load');
+                                                        /*$('#myModal').modal('show');*/
+                                                        $('#myModal').modal({backdrop: false, keyboard: false});
                                                         $('#myModal').css({"height": "38em"});
                                                         //$("#vip").fadeIn(3000);
                                                         var slideInd = 0;
@@ -207,12 +211,12 @@ if (isset($_SESSION['admin'])) {
                                 </div> 
                                 <div class="modal-body">
                                     <div class="agileits-w3layouts-info">
-                                        <?PHP
+                                        <?php
                                         $query4 = "select * from vip  order by rand()";
                                         $res4 = mysql_query($query4);
                                         if (mysql_num_rows($res4) > 0) {
                                             while ($res41 = mysql_fetch_array($res4)) {
-                                                echo"		<a href=\"chat2.php?user={$res41['username']}\"><img src=\"vip/{$res41['image']}\" class=\"islide\"  height=400/></a>	";
+                                                echo"<a href=\"chat2.php?user={$res41['username']}\"><img src=\"vip/{$res41['image']}\" class=\"islide\"  height=400/></a>	";
                                             }
                                         }
                                         ?>
@@ -226,7 +230,7 @@ if (isset($_SESSION['admin'])) {
                     </div>
                     <div class="row">
                         <div class="col-md-12 col-md-offset-1" style="font-weight:bold;font-size:3em;color:#FFC20F;margin-top:1em; ">
-<?php if($pagename=="index") require_once("incl/timer.php"); ?>
+<?php require_once("incl/timer.php"); ?>
                         </div>
                     </div>
                 </div>
@@ -249,12 +253,12 @@ ob_end_flush();
         <script src="js/jarallax.js"></script>
         <script src="js/SmoothScroll.min.js"></script>
         <script type="text/javascript">
-                                /* init Jarallax */
-                                $('.jarallax').jarallax({
-                                    speed: 0.5,
-                                    imgWidth: 1366,
-                                    imgHeight: 768
-                                })
+            /* init Jarallax */
+            $('.jarallax').jarallax({
+                speed: 0.5,
+                imgWidth: 1366,
+                imgHeight: 768
+            })
         </script>
         
         <script type="text/javascript" src="js/move-top.js"></script>

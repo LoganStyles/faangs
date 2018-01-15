@@ -32,7 +32,7 @@ cont();
 <html lang="en">
     <?php
     ///////////////////////////form.css
-    require_once("incl/title.php");
+    require_once("incl/title_min.php");
     ?>
     <link rel="stylesheet" href="css/form.css">
     <body>
@@ -44,10 +44,7 @@ cont();
         <!---content of your code-->
         <!--FORM BODY-->
         <div class="container">
-<!--            <div class="row">
-                <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="col-md-4 col-lg-4 col-sm-12"></div>
-                    <div class="col-md-4 col-lg-4 col-sm-12" style="margin-top:10px;">-->
+                    <div class="col-md-4 col-lg-4 col-sm-12" >
                         <?php
                         $loginURL = $helper->getLoginUrl($redirectURL, $fbPermissions);
                         // Render facebook login button
@@ -237,7 +234,7 @@ cont();
                             <legend>Personal Data</legend>
                                                         
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6 col-lg-12">
                                     <label for="password">Password</label>
                                      <?php
                                     if (isset($_SESSION["password"])) {
@@ -249,7 +246,7 @@ cont();
                                     ?>
                                 </div>
                                 
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6 col-lg-12">
                                     <label for="fullname">Fullname</label>
                                     <?php
                                     if (isset($_SESSION["fullname"])) {
@@ -264,7 +261,7 @@ cont();
                             </div>
                             
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6 col-lg-12">
                                     <label for="username">Username</label>
                                      <?php
                                     if (isset($_SESSION["usname"])) {
@@ -276,7 +273,7 @@ cont();
                                     ?>
                                 </div>
                                 
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6 col-lg-12">
                                     <label for="phonenumber">Phone number</label>
                                     <?php
                                     if (isset($_SESSION["phonenumber"])) {
@@ -292,7 +289,7 @@ cont();
                             </div>
                             
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6 col-lg-12">
                                     <label for="country">SELECT YOUR COUNTRY</label>
                                     <select class="form-control text_field" id="country" name="country" onchange="pop(this.value)">
                                         <OPTION value="NONE">NONE</OPTION>
@@ -306,7 +303,7 @@ cont();
                                     </select>
                                 </div>
                                 
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6 col-lg-12">
                                     <label for="state">STATE</label>
                                     <select class="form-control text_field" id="state" name="state">
                                         <option>select your state</option>
@@ -316,7 +313,7 @@ cont();
                             </div>
                             
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6 col-lg-12">
                                     <label for="age">AGE</label>
                                     <?php
                                     if (isset($_SESSION["age"])) {
@@ -328,7 +325,7 @@ cont();
                                     ?>
                                 </div>
                                 
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6 col-lg-12">
                                     <label for="age">EMAIL</label>
                                     <?php
                                     if (isset($_SESSION["email"])) {
@@ -342,7 +339,7 @@ cont();
                             </div>
                             
                              <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6col-lg-12">
                                     <label for="age">GENDER</label>
                                     <?php
                                 if (isset($_SESSION["gender"]) and $_SESSION["gender"] == 'Male') {
@@ -359,7 +356,7 @@ cont();
                                 ?>
                                 </div>
                                 
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6 col-lg-12">
                                     <label for="bio">BIO</label>
                                     <?php
                                     if (isset($_SESSION["bio"])) {
@@ -375,7 +372,7 @@ cont();
                             </div>
                             
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6 col-lg-12">
                                     <label for="referral">SELECT REFERRAL CODE</label>
                                     <select class="form-control text_field" id="referral" name="referral">
                                                     <OPTION value=""> -- NONE --</OPTION>
@@ -531,12 +528,7 @@ cont();
                             <?php echo"<input type=\"submit\" name=\"submit\" class=\" btn btn-default col-md-offset-2\"  value=\"Submit\"/>"; ?>
                         </div>
                     </form>
-<!--                    </div>
-                    <div class="col-md-4 col-lg-4 col-sm-12"></div>
-                </div>
-                
-            </div>-->
-            
+                    </div>            
         </div>
         <!--FOOTER-->
         <footer>

@@ -6,9 +6,7 @@ ob_start();
 	cont();
 ?>
 <?php
-		
-	
-		
+
 		$user=$_SESSION['username'];
 		//$sql="delete from online where username='$user'";
 		mysql_query($sql);
