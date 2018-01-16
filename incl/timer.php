@@ -15,11 +15,10 @@ if (mysql_num_rows($result1) > 0) {
     //echo $enddate."</br>";	
     ?>	
     <!--<p id="demo"></p>-->
-        <div style="width: 100%;">
+        <div style="width: 100%; height: 400px;">
             <div style="width: 70%;margin: 0 auto;">
                 <div class="timer_container"></div>
             </div>
-            
         </div>
     
     <script type="text/javascript" src="js/countDown.js"></script>

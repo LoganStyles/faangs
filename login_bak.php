@@ -18,7 +18,7 @@ cont();
         <!--end of header line-->
         <!---content of your code-->
         <!--FORM BODY-->
-        <div class="container-fluild">
+        <div class="container">
             <?php
             if (isset($_POST["submit"])) {
                 $username = test_input($_POST['username']);
@@ -33,8 +33,6 @@ cont();
                 $result1 = mysql_query($query1);
                 if (mysql_num_rows($result1) > 0) {
                     $rec = mysql_fetch_array($result1);
-                    echo $_SESSION['dir'];exit;
-                    print_r($rec);exit;
                     if ($rec['status'] == 2 and ! isset($_SESSION['dir'])) {
                         session_start();
                         $_SESSION['username'] = $rec['username'];
@@ -89,7 +87,7 @@ cont();
                     } else {
                         $nam = "your account is not activated";
                         echo "<div class=\"alert alert-danger\">";
-                        echo "<strong>";
+                        echo "	<strong>";
                         echo "{$nam}";
                         echo "	</strong>";
                         echo "</div>";
@@ -117,28 +115,56 @@ cont();
                 $_SESSION['dir'] = 2;
             }
             ?>
-            <div class="row">
-                <div class="col-md-5 col-md-offset-4" style="margin-top:5px">
-            <?php
-            $loginURL = $helper->getLoginUrl($redirectURL, $fbPermissions);
-            // Render facebook login button
-            $output = '<a href="' . htmlspecialchars($loginURL) . '"><img src="face/images/face2.png"></a>';
-            echo $output;
-            ?>
-                    <div style="margin-bottom:5px">
-            <?php
-            require_once("g/lo.php");
-            ?>
+            <!-- Begin page content -->
+                    <div class="col-md-4 col-lg-4 col-sm-12" >
+                        <?php
+                        $loginURL = $helper->getLoginUrl($redirectURL, $fbPermissions);
+                        // Render facebook login button
+                        $output = '<a href="' . htmlspecialchars($loginURL) . '"><img class=\"img-responsive\" src="face/images/face2.png"></a>';
+                        echo $output;
+                        ?>
+                        <div style="margin-bottom:5px">
+                            <?php
+                            require_once("g/lo.php");
+                            ?>
+                        </div>
+                    
+                        <form method ="post" action=" " class="form-horizontal" role="form">
+                            <div class="form-row">
+                              <div class="form-group col-md-6 col-lg-12">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" name="username" placeholder="Enter your username" required>
+                              </div>
+                            </div>
+                            
+                            <div class="form-row">
+                              <div class="form-group col-md-6 col-lg-12">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" name="password" placeholder="Password" required>
+                              </div>
+                            </div>
+
+                            <div class="form-row">
+                              <div class="form-group col-md-6 col-lg-12">
+                                <button type="submit" class="btn btn-default" name="submit">Submit</button>
+                                <a href="forget.php" class="btn btn-default col-md-6 col-lg-6 col-sm-11">Forget password</a>
+                              </div>
+                            </div>
+                            
+                            <div class="form-row">
+                              <div class="form-group col-md-6 col-lg-12">
+                                <a href="registration.php" class="btn btn-default col-md-6  col-md-offset-1">Don't have an account?Register</a>
+                              </div>
+                            </div>
+                          </form>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-5 col-md-offset-4">
-                <form method ="post" action=" " class="form-horizontal" role="form">
+                        
+                        
+                        
+<!--                        <form method ="post" action=" " class="form-horizontal" role="form">
                     <fieldset>
                         <div class="form-group">
-                            <div class="col-md-7 input-group al">
+                            <div class="col-md-7 col-lg-7 col-sm-11">
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-user"></span>
                                 </span>
@@ -146,7 +172,7 @@ cont();
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-7 input-group al">
+                            <div class="col-md-7 col-lg-7 col-sm-11 input-group al">
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-lock"></span>
                                 </span>
@@ -154,21 +180,19 @@ cont();
                             </div>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-default col-md-2 al" name="submit" onclick="valid()">Submit</button>
-                            <a href="forget.php" class="btn btn-default col-md-4  col-md-offset-1">Forget password</a>
+                            <button type="submit" class="btn btn-default col-md-6 col-lg-6 col-sm-11" name="submit">Submit</button>
+                            <a href="forget.php" class="btn btn-default col-md-6 col-lg-6 col-sm-11">Forget password</a>
                         </div>
                         <div class="form-group">
                             <a href="registration.php" class="btn btn-default col-md-6  col-md-offset-1">Don't have an account?Register</a>
                         </div>
                     </fieldset>
-                </form>
-            </div>					
-        </div>
+                </form>-->
         <!--FOOTER-->
         <footer>
-<?php
-include("incl/footer.php");
-?>
+            <?php
+            include("incl/footer.php");
+            ?>
         </footer>
     </div>	
 </body>

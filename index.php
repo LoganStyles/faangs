@@ -141,7 +141,6 @@ if (isset($_SESSION['admin'])) {
                                                 <!--<a href="#" data-toggle="modal" data-target="#myModal">Participate Now</a>-->
                                                 <script type="text/javascript">
                                                     $(window).on('load', function () {
-                                                        alert('inside load');
                                                         /*$('#myModal').modal('show');*/
                                                         $('#myModal').modal({backdrop: false, keyboard: false});
                                                         $('#myModal').css({"height": "38em"});

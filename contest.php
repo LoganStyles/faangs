@@ -6,293 +6,294 @@ require_once("incl/function.php");
 session_start();
 cont();
 ?>
-<!DOCTYPE html>
 
+<!doctype html>
 <html lang="en">
     <?php
     require_once("incl/title.php");
     ?>
-    <link rel="stylesheet" href="css/form.css">
-    <link rel="stylesheet" href="css/contest.css">
-    <link rel="stylesheet" href="css/countdown.css" type="text/css" media="all" />
-    <style>
-        #h{
-            width:100%;
-            position:fixed;
-            z-index:1;
-        }
-    </style>
-    <body>
-        <!--header line-->
-        <!--header line-->
-        <?php
-        //	include("incl/header2.php");
-        ?>
-        <!--------header2-->
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="css/bootstrap.min.css" >
+        <link rel="stylesheet" href="css/form.css">
+        <link rel="stylesheet" href="css/contest.css">
+        <link rel="stylesheet" href="css/countdown.css" type="text/css" media="all" />
 
+        <!-- Custom styles for this template -->
+        <link href="css/sticky-footer-navbar.css" rel="stylesheet">
 
-        <div class="w3-header-bottom" id="h">
-            <div class="w3layouts-logo">
-                <h1>
-                    <a href="index.php"><img class="img-responsive" src="images/logo.png"></a>
-                </h1>
-            </div>
-            <div class="tops-nav">
-                <!------------------------HEADER 2 IS FOR CONTEST/CONTEST2.PHP--------------->
-                <nav class="navbar navbar-default">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                    </div>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav navbar-right">
-                            <?php
-                            if (isset($_SESSION['username']) && ($_SESSION['status'] == 1)) {
-                                //echo "	<li><a href=\"joincontest.php\">Join-Contest</a></li>";
-                                echo "	<li><a href=\"participate.php\">Profile</a></li>";
-                                echo "	<li><a href=\"incl/outs.php\">Sign-Out</a></li>";
-                            } else if (isset($_SESSION['username']) && ($_SESSION['status'] == 2)) {
-                                echo "	<li><a href=\"chat.php\">Forum</a></li>";
-                                echo "	<li><a href=\"chat2.php?user={$_SESSION['username']}\">Profile</a></li>";
-                                echo "	<li><a href=\"incl/outs.php\">Sign-Out</a></li>";
-                            } else if (isset($_SESSION['admin'])) {
-                                echo "	<li><a href=\"adminpage.php\">Dashboard</a></li>";
-                                echo "	<li><a href=\"incl/outs.php\">Sign-Out</a></li>";
-                            } else if (!isset($_SESSION['username'])) {
-                                //echo "	<li><a href=\"joincontest.php\">Join-Contest</a></li>";
-                                echo "	<li><a href=\"login.php\">Sign-In</a></li>";
-                                echo "	<li><a href=\"registration.php\">Sign-Up</a></li>";
-                            }
-                            ?>
-                        </ul>	
-                        <div class="clearfix"> </div>
-                    </div>	
-                </nav>		
-            </div>	
-            <div class="row ">
-                <div class="col-md-12">
-                    <form method="post" action=""/>
-                    <div class="col-md-8 input-group" style="float:left;">
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-user">
-                            </span>
-                        </span>
-                        <input type="text" placeholder="enter username of contestant" class="form-control" name="fullname"/>
-                    </div>	
-                    <div class="col-md-2" style="float:left;">
-                        <input type="submit" class="form-control" name="submit1" value="search"/>
-                    </div>	
-                    </form>
-                </div>	
-            </div>		
-            <div class="clearfix"> </div>
-        </div>
-        <!--------------------------------------------end of head---------------->
-<?php
-if (isset($_POST["submit1"])) {
-    $contestant = test_input($_POST["fullname"]);
+    <body style="background-color: #f5f5f5;">
 
-    $query4 = "select * from picture where username='$contestant'";
-    $result4 = mysql_query($query4);
-    if (mysql_num_rows($result4) > 0) {
-        header("location:contest2.php?id=$contestant");
-    } {
-        $nam = "no record found";
-        echo "<div class=\"alert alert-danger\">";
-        echo "	<strong>";
-        echo "{$nam}";
-        echo "	</strong>";
-        echo "</div>";
-        header('Refresh:2; url=contest.php?category=general');
-    }
-}
-?>
-
-        <div class="container-fluild" style="padding-top:10em;">
-            <div class="row " style="">
-                <div class="col-md-8">
-                    <ul class="menu1">
-                        <li><span class="glyphicon glyphicon-th-list"></span><a href="contest.php?category=general">General</a></li>
-                        <li><span class="glyphicon glyphicon-shopping-cart"></span><a href="contest.php?category=business">Business</a></li>
-                        <li><span class="glyphicon glyphicon-heart-empty"></span><a href="contest.php?category=dating">Dating</a></li>
-                        <li><span class="glyphicon glyphicon-tree-deciduous"></span><a href="contest.php?category=social">Social</a></li>
-                        <li><span class="glyphicon glyphicon-home"></span><a href="contest.php?category=religious">Religious</a></li>
-                        <li><span class="glyphicon glyphicon-sunglasses"></span><a href="contest.php?category=model">Model</a></li>
-                    </ul>
-                </div>	
-                <div style="float:right;margin-right:7em;font-weight:bold;font-size:1.2em;">
-<?php
-include("incl/timer.php");
-?>
-                </div>
-            </div>
-            <!------------------------------------------------------h------------------>
-            <div class="row " style="">
-                <div class="col-md-8 col-md-offset-3 tops" style="">
-<?php require_once("incl/top.php"); ?>
-
-                </div>					
-            </div>
-            <!------------------------------------------------------h------------------>
-            <div class="row" style="margin-top:1em;">
-                <div class="col-md-2" style="">
-
-<?php require_once("incl/left.php"); ?>
-
-                </div>
-                <!------------------------------------------------------h------------------>
-                <div class="col-md-2" style="">
-                    <div class="row left">
-                        <div class="col-md-12" style="">
-                            <h4 style="font-weight:bold;font-size:1.2em;">CATEGORY LISTING</H4>
-                            <ul id="menu2">
-                                <li><span class="glyphicon glyphicon-th-list"></span><a href="contest.php?category=general" class="active">General</a></li>
-                                <li><span class="glyphicon glyphicon-shopping-cart"></span><a href="contest.php?category=business">Business</a></li>
-                                <li><span class="glyphicon glyphicon-heart-empty"></span><a href="contest.php?category=dating">Dating</a></li>
-                                <li><span class="glyphicon glyphicon-tree-deciduous"></span><a href="contest.php?category=social">Social</a></li>
-                                <li><span class="glyphicon glyphicon-home"></span><a href="contest.php?category=religious">Religious</a></li>
-                                <li><span class="glyphicon glyphicon-sunglasses"></span><a href="contest.php?category=model">Model</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="row left" style="margin-top:3px;">
-                        <div class="col-md-12">
-                            <form class="form-horizontal" role="form" method="post" action="filter.php"/>
-                            <h5>age</h5>
-                            <div class="form-group">
-                                <div class="cl col-md-3"style="" ><input type="text" class="form-control"  name="agemin" placeholder="min"/></div>
-                                <div class="das" style="">--</div>
-                                <div class="cl col-md-3" style=""><input type="text" class="form-control" name="agemax"  placeholder="max"/></div>
-                            </div>
-                            <h5>Number of like</h5>
-                            <div class="form-group">
-                                <div class="cl col-md-3"style="" ><input type="text" class="form-control" name="likemin" placeholder="min"/></div>
-                                <div class="das" style="">--</div>
-                                <div class="cl col-md-3" style=""><input type="text" class="form-control" name="likemax" placeholder="max"/></div>
-                            </div>
-                            <h5>gender</h5>
-                            <div class="form-group" style="margin-left:3px;">
-                                <div class="radio-inline"><input type="radio" class="" name="gender" value="male"/>Male</div>
-                                <div class="radio-inline"><input type="radio" class="" name="gender" value="female" checked/>Female</div>
-                            </div>
-                            <h5>location</h5>
-                            <div class="form-group">
-                                <div class="col-md-8"style="" ><input type="text" class="form-control" name="location" placeholder="search location"/></div>
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" name="submit" class=" btn btn-default col-md-offset-3"  value="Submit"/>
-                            </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6" style="">
-                    <!--main body-->
-<?php
-/////////////////////////////////////pagination begin/////////////////////////////////////////////////////////////
-if (isset($_GET["category"])) {
-
-    $cat = $_GET["category"];
-    $rowsperpage = 5;
-    if ($cat == "general") {
-        $query = "select * from picture where profile='YES'";
-        $result = mysql_query($query);
-        $total_records = mysql_num_rows($result);
-    } else {
-        $query = "select * from picture where profile='YES' and category='$cat'";
-        $result = mysql_query($query);
-        if (mysql_num_rows($result) > 0) {
-            $total_records = mysql_num_rows($result);
-        } else {
-            $total_records = 0;
-            $nam = "no record found under this category.see others below";
-            echo "<div class=\"alert alert-danger\">";
-            echo "	<strong>";
-            echo "{$nam}";
-            echo "	</strong>";
-            echo "</div>";
-            header('Refresh:3; url=contest.php?category=general');
-        }
-    }
-    $totalpages = ceil($total_records / $rowsperpage);
-    if (isset($_GET['currentpage']) && is_numeric($_GET['currentpage'])) {
-        $currentpage = (int) $_GET['currentpage'];
-    } else {
-        $currentpage = 1;
-    }
-    if ($currentpage > $totalpages) {
-        $currentpage = $totalpages;
-    }
-    if ($currentpage < 1) {
-        $currentpage = 1;
-    }
-    $offset = ($currentpage - 1) * $rowsperpage;
-
-
-    ////////////////////////////////////////pagination variable ends
-
-    $query = "SELECT  total.tos,picture.title,picture.img,picture.category,picture.username, registration.age,registration.country,
-									  registration.state,registration.fullname,registration.bio FROM picture left JOIN registration ON picture.username=registration.username 
-									  left join total on picture.username=total.username
-									  where picture.profile='YES'&& picture.category='$cat' order by picture.date asc LIMIT $offset, $rowsperpage ";
-    $result1 = mysql_query($query);
-
-    if (mysql_num_rows($result1) <= 0) {
-
-        $query = "SELECT  total.tos,picture.title,picture.img,picture.category,picture.username, registration.age,registration.country,
-									  registration.state,registration.fullname,registration.bio FROM picture left JOIN registration ON picture.username=registration.username 
-									  left join total on picture.username=total.username
-									  where picture.profile='YES' order by picture.date asc LIMIT $offset, $rowsperpage ";
-        $result1 = mysql_query($query);
-    }
-
-    //Selecting the data from table but with limit
-    //$result1=shuffle($result1);
-    while ($rec = mysql_fetch_array($result1)) {
-        echo "<div class=\"col-md-12 abouts\">";
-        echo "<div class=\"col-md-3\" id=\"pix\">";
-        $k = ($rec['username']);
-        echo "			<a href=\"contest2.php?id=$k\"><img src=\"img/{$rec['img']}\"></a>";
-        echo "</div>";
-        echo "<div class=\"col-md-6\" id=\"\">";
-        echo "<div id=\"about-infos\">";
-        echo "			<a href=\"contest2.php?id=$k\">	<h4>{$rec['fullname']}</h4></a>";
-        echo "				<p>{$rec['bio']}</p>";
-        echo "</div>";
-        echo "<div id=\"about-list\">";
-        echo "					<ul class=\"menu1\">
-																						<li>Country:{$rec['country']}</li>
-																						<li>State:{$rec['state']}</li>
-																						<li>Age:{$rec['age']}</li>
-																						<li>Category:{$rec['category']}</li>
-																						</ul>";
-        echo "</div>";
-        echo "</div>";
-        echo "<div class=\"col-md-3\">";
-        echo "<div id=\"about-infos\">";
-        echo "			<a href=\"contest2.php?id=$k\"><h5 style=\"font-weight:bold;font-size:1.1em;\">Total Likes</h4></a>";
-        if (($rec['tos'] == null)or $rec['tos'] <= 0) {
-            $po = 0;
-        } else {
-            $po = $rec['tos'];
-        }
-        echo "				<p style=\"font-size:3em;\">{$po}</p>";
-        echo "</div>";
-        echo "<div id=\"\">";
-        echo "	";
-        echo "</div>";
-        echo "</div>";
-        echo "<div class=\"clearfix\"> </div>";
-        echo "</div>";
-    }
-    ?>
-
+        <header>
+            <!-- Fixed navbar -->
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <a class="navbar-brand" href="index.php">
+                    <img width="70%" class="img-responsive" src="images/logo.png">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <!--            <li class="nav-item active">
+                                      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                                    </li>-->
                         <?php
+                        if (isset($_SESSION['username']) && ($_SESSION['status'] == 1)) {
+                            echo '<li class=\"nav-item\"><a class=\"nav-link\" href=\"participate.php\">Profile</a></li>';
+                            echo '<li class=\"nav-item\"><a class=\"nav-link\" href=\"incl/outs.php\">Sign-Out</a></li>';
+                        } else if (isset($_SESSION['username']) && ($_SESSION['status'] == 2)) {
+                            echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"chat.php\">Forum</a></li>";
+                            echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"chat2.php?user={$_SESSION['username']}\">Profile</a></li>";
+                            echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"incl/outs.php\">Sign-Out</a></li>";
+                        } else if (isset($_SESSION['admin'])) {
+                            echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"adminpage.php\">Dashboard</a></li>";
+                            echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"incl/outs.php\">Sign-Out</a></li>";
+                        } else if (!isset($_SESSION['username'])) {
+                            echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"login.php\">Sign-In</a></li>";
+                            echo "<li class=\"nav-item\"><a class=\"nav-link\" href=\"registration.php\">Sign-Up</a></li>";
+                        }
+                        ?>
+                    </ul>
+                    <form class="form-inline mt-2 mt-md-0">
+                        <input name="fullname" placeholder="enter username of contestant" class="form-control mr-sm-2" type="text" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="submit1">Search</button>
+                    </form>
+                </div>
+            </nav>
+        </header>
+        <!--------------------------------------------end of head---------------->
+        <?php
+        if (isset($_POST["submit1"])) {
+            $contestant = test_input($_POST["fullname"]);
+
+            $query4 = "select * from picture where username='$contestant'";
+            $result4 = mysql_query($query4);
+            if (mysql_num_rows($result4) > 0) {
+                header("location:contest2.php?id=$contestant");
+            } {
+                $nam = "no record found";
+                echo "<div class=\"alert alert-danger\">";
+                echo "	<strong>";
+                echo "{$nam}";
+                echo "	</strong>";
+                echo "</div>";
+                header('Refresh:2; url=contest.php?category=general');
+            }
+        }
+        ?>
+
+        <div class="container-fluid">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top: 7%;">
+                <!--<a class="navbar-brand" href="#">Navbar</a>-->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contest.php?category=general"><i class="fa fa-bars" >&nbsp;&nbsp;General</i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contest.php?category=business"><i class="fa fa-briefcase" >&nbsp;&nbsp;Business</i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contest.php?category=dating"><i class="fa fa-heart-o" >&nbsp;&nbsp;Dating</i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contest.php?category=social"><i class="fa fa-camera" >&nbsp;&nbsp;Social</i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contest.php?category=religious"><i class="fa fa-building" >&nbsp;&nbsp;Religious</i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contest.php?category=model"><i class="fa fa-diamond" >&nbsp;&nbsp;Model</i></a>
+                        </li>
+                        <!--                <li class="nav-item dropdown">
+                                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Dropdown link
+                                          </a>
+                                          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                          </div>
+                                        </li>-->
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="row">
+                <!--COL 1::CHANGING ADVERTS-->
+                <div class="col-md-2">
+                    
+                     <!------------------------------------------------------h------------------>
+            <?php require_once("incl/left.php"); ?>
+
+<!--                    <div class="card border-secondary mb-3" style="max-width: 18rem;">
+                        <div class="card-body text-secondary">
+                            <img class="card-img-top" src="images/logo.png" alt="Card image cap">
+                        </div>
+                    </div>-->
+
+                    <!--<div class="card border-secondary mb-3" style="max-width: 18rem;">
+                        <div class="card-header">Header</div>
+                        <div class="card-body text-secondary">
+                            <h5 class="card-title">Secondary card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>-->
+
+
+
+                </div>
+                <div class="col-md-2"><!--COL 2::CATEGORIES-->
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action active">
+                          CATEGORY LISTING
+                        </a>
+                        <a href="contest.php?category=general" class="list-group-item list-group-item-action"><i class="fa fa-bars" >&nbsp;&nbsp;General</i></a>
+                        <a href="contest.php?category=business" class="list-group-item list-group-item-action"><i class="fa fa-briefcase" >&nbsp;&nbsp;Business</i></a>
+                        <a href="contest.php?category=dating" class="list-group-item list-group-item-action"><i class="fa fa-heart-o" >&nbsp;&nbsp;Dating</i></a>
+                        <a href="contest.php?category=social" class="list-group-item list-group-item-action"><i class="fa fa-camera" >&nbsp;&nbsp;Social</i></a>
+                        <a href="contest.php?category=religious" class="list-group-item list-group-item-action"><i class="fa fa-building" >&nbsp;&nbsp;Religious</i></a>
+                        <a href="contest.php?category=model" class="list-group-item list-group-item-action"><i class="fa fa-diamond" >&nbsp;&nbsp;Model</i></a>
+                    </div>
+                    
+                    <div class="card border-secondary mb-3" style="margin-top: 1%;">
+                         <form method="post" action="filter.php">
+                            <div class="form-row">
+                              <div class="form-group col-md-5">
+                                <label for="agemin">Age</label>
+                                <input type="number" class="form-control" id="agemin" name="agemin" placeholder="min">
+                              </div>
+                              <div class="form-group col-md-5">
+                                <label for="agemax"></label>
+                                <input type="text" class="form-control" id="agemax" name="agemax" placeholder="max">
+                              </div>
+                            </div>
+                                <div class="form-group">
+                                  <label for="likemin">Number of likes</label>
+                                  <input type="text" class="form-control" id="likemin" name="likemin" placeholder="min">
+                                </div>
+                                <div class="form-group">                              
+                                  <input type="text" class="form-control" id="likemax" name="likemax" placeholder="max">
+                                </div>
+                            <div class="form-row">
+                              <p>gender</p>
+                                <div class="form-group" style="margin-left:3px;">
+                                    <div class="radio-inline"><input type="radio" class="" name="gender" value="male"/>Male</div>
+                                    <div class="radio-inline"><input type="radio" class="" name="gender" value="female" checked/>Female</div>
+                                </div>
+                            </div>
+                            
+                            <input type="submit" name="submit" class=" btn btn-default col-md-offset-3"  value="Submit"/>
+                          </form>
+                    </div>
+                    
+                       
+                </div>
+                <div class="col-md-6"><!--COL 3::PROFILE INFO-->
+                                        <!--main body-->
+                    <?php
+//                    echo 'in here';exit;
+/////////////////////////////////////pagination begin/////////////////////////////////////////////////////////////
+                    if (isset($_GET["category"])) {
+
+                        $cat = $_GET["category"];
+                        $rowsperpage = 5;
+                        if ($cat == "general") {
+                            $query = "select * from picture where profile='YES'";
+                            $result = mysql_query($query);
+                            $total_records = mysql_num_rows($result);
+                        } else {
+                            $query = "select * from picture where profile='YES' and category='$cat'";
+                            $result = mysql_query($query);
+                            if (mysql_num_rows($result) > 0) {
+                                $total_records = mysql_num_rows($result);
+                            } else {
+                                $total_records = 0;
+                                $nam = "no record found under this category.see others below";
+                                echo "<div class=\"alert alert-danger\">";
+                                echo "	<strong>";
+                                echo "{$nam}";
+                                echo "	</strong>";
+                                echo "</div>";
+                                header('Refresh:3; url=contest.php?category=general');
+                            }
+                        }
+                        $totalpages = ceil($total_records / $rowsperpage);
+                        if (isset($_GET['currentpage']) && is_numeric($_GET['currentpage'])) {
+                            $currentpage = (int) $_GET['currentpage'];
+                        } else {
+                            $currentpage = 1;
+                        }
+                        if ($currentpage > $totalpages) {
+                            $currentpage = $totalpages;
+                        }
+                        if ($currentpage < 1) {
+                            $currentpage = 1;
+                        }
+                        $offset = ($currentpage - 1) * $rowsperpage;
+
+                        ////////////////////////////////////////pagination variable ends
+
+                        $query = "SELECT  total.tos,picture.title,picture.img,picture.category,picture.username, registration.age,registration.country,
+                                registration.state,registration.fullname,registration.bio FROM picture left JOIN registration ON picture.username=registration.username 
+                                left join total on picture.username=total.username
+                                where picture.profile='YES'&& picture.category='$cat' order by picture.date asc LIMIT $offset, $rowsperpage ";
+                        $result1 = mysql_query($query);
+                        if (mysql_num_rows($result1) <= 0) {
+
+                            $query = "SELECT  total.tos,picture.title,picture.img,picture.category,picture.username, registration.age,registration.country,
+                                    registration.state,registration.fullname,registration.bio FROM picture left JOIN registration ON picture.username=registration.username 
+                                    left join total on picture.username=total.username
+                                    where picture.profile='YES' order by picture.date asc LIMIT $offset, $rowsperpage ";
+                            $result1 = mysql_query($query);
+                        }
+
+                        //Selecting the data from table but with limit
+                        //$result1=shuffle($result1);
+                        $content="";
+                        while ($rec = mysql_fetch_array($result1)) {
+                            $k = ($rec['username']);
+                            if (($rec['tos'] == null)or $rec['tos'] <= 0) {
+                                $po = 0;
+                            } else {
+                                $po = $rec['tos'];
+                            }
+
+                            $content.="<div class=\"card border-secondary mb-3\">";
+                            $content.="<div>";
+                            $content.="<div class=\"col-sm-4\">";
+                            $content.="<div class=\"card border-secondary mb-3\">";
+                            $content.="<div class=\" text-secondary\">";
+                            $content.= "<a href=\"contest2.php?id=$k\"><img class=\"card-img-top\" src=\"img/{$rec['img']}\"></a>";
+                            $content.="</div></div></div>";
+
+                            $content.="<div class=\"col-sm-8\">";
+                            $content.="<div class=\"card mb-3\" style=\"border: 0px;\">";
+                            $content.="<div class=\"card-body\">";
+                            $content.= "<a href=\"contest2.php?id=$k\"><h5 class=\"card-title\" style=\"text-transform: uppercase\">{$rec['fullname']}</h5></a>";
+                            $content.="<p class=\"card-text\">{$rec['bio']}</p>";
+                            $content.="<p><span>COUNTRY:</span><strong><span style=\"padding: 0 1%;\">{$rec['country']}</span></strong></p>";
+
+                            $content.="<p><span>STATE:</span><strong><span style=\"padding: 0 1%;\">{$rec['state']}</span></strong></p>";
+                            $content.="<p><span>AGE:</span><strong><span style=\"padding: 0 1%;\">{$rec['age']}</span></strong></p>";
+
+                            $content.="<p><span>CATEGORY:</span><strong><span style=\"padding: 0 1%;\">{$rec['category']}</span></strong></p>";
+                            $content.= "<p><a href=\"contest2.php?id=$k\"><span>LIKES:</span><strong><span style=\"padding: 0 1%;\">{$po}</span></strong></p>";
+                            $content.="</div></div></div></div></div>";
+                            
+                        }
+                        echo $content;                  
+                    
+                    ?>
+                                        
+                     <?php
                         echo "<ul class=\"pagination\">";
                         $range = 2;
                         if ($currentpage > 1) {
@@ -331,64 +332,36 @@ if (isset($_GET["category"])) {
                         echo "</script>";
                     }
                     ?>
+
                 </div>
-                <!------------------------------------------------right advert--------------------------->
-                <div class="col-md-1" style="width:200px;">
+                <div class="col-md-2"><!--COL 4::CHANGING ADVERTS-->
                     <?php require_once("incl/right.php"); ?>
                 </div>
             </div>
-        </div>
-        <!---FOOTER ADVERT-->
-        <div class="row ">
-            <div class="col-md-8 col-md-offset-3 tops" style="margin-bottom:10px;margin-top:20px;">
+            
+            <div class="row">
+                <div class="col-md-12"><!--COL 4::CHANGING ADVERTS-->
                     <?php require_once("incl/bottom.php"); ?>
-            </div>							
-        </div>
-        <!--FOOTER-->
-        <footer>
-                    <?php
-                    include("incl/footer.php");
-                    ob_end_flush();
-                    ?>
+                </div>
+            </div>
+
+
+        </div> <!-- /container -->
+
+        <footer class="footer">
+            <div class="container">
+                <span class="text-muted">&copy <?php echo date("Y") . " "; ?>faangs.All rights Reserved</span>
+        <a href="https://seal.beyondsecurity.com/vulnerability-scanner-verification/faangs.com"><img src="https://seal.beyondsecurity.com/verification-images/faangs.com/vulnerability-scanner-2.gif" alt="Website Security Test" border="0" /></a>
+            </div>
         </footer>
-    </div>	
-</body>
-<script type="text/javascript">
-    function chk() {
-        if (document.getElementById('model').checked)
-        {
-            document.getElementById('tes').style.display = 'block';
-        } else
-        {
-            document.getElementById('tes').style.display = 'none';
-        }
-    }
-    function chk2() {
-        if (document.getElementById('model2').checked)
-        {
-            document.getElementById('tes2').style.display = 'block';
-        } else
-        {
-            document.getElementById('tes2').style.display = 'none';
-        }
-    }
-    function chk3() {
-        if (document.getElementById('model3').checked)
-        {
-            document.getElementById('tes3').style.display = 'block';
-        } else
-        {
-            document.getElementById('tes3').style.display = 'none';
-        }
-    }
-    function chk4() {
-        if (document.getElementById('model4').checked)
-        {
-            document.getElementById('tes4').style.display = 'block';
-        } else
-        {
-            document.getElementById('tes4').style.display = 'none';
-        }
-    }
-</script> 
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-slim.min.js"><\/script>')</script>
+        <!--<script src="js/vendor/popper.min.js"></script>-->
+        <script src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/countDown.js"></script>
+    </body>
 </html>
