@@ -22,10 +22,7 @@ if (isset($_POST['edit'])) {
             header("Refresh:1; url=contest2.php?id={$username}");
         }
     } else {
-        $query1 = "update registration set phs='2'
-										
-
-										where username='$username'";
+        $query1 = "update registration set phs='2'where username='$username'";
         $result = mysql_query($query1);
         if (mysql_affected_rows() >= 1) {
             $nam = "<H4>your phone number can no longer be visible on the gallery page</H4>";
@@ -88,10 +85,6 @@ if (isset($_POST['submit'])) {
             $_POST['shoulder'] = "not a model";
         }
 
-
-
-
-
         $phonenumber = test_input($_POST['phonenumber']);
         $country = test_input($_POST['country']);
         $country = strtoupper($country);
@@ -108,9 +101,8 @@ if (isset($_POST['submit'])) {
         $chest = test_input($_POST['chest']);
         $shoulder = test_input($_POST['shoulder']);
         $query1 = "update registration set fullname='$fullname',email='$email',phonenumber='$phonenumber',
-								country='$country',state='$state',age='$age',bio='$bio',height='$height',waist='$waist',shoe='$shoe', hip='$hip',chest='$chest',shoulder='$shoulder'
-
-								where username='$pe'";
+		country='$country',state='$state',age='$age',bio='$bio',height='$height',waist='$waist',shoe='$shoe', hip='$hip',chest='$chest',shoulder='$shoulder'
+                where username='$pe'";
         $result = mysql_query($query1);
         if (mysql_affected_rows() >= 1) {
             $nam = "your personal data have been successfully updated</H4>";

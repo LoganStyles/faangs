@@ -822,7 +822,7 @@ $gen = $_SESSION['sex'];
         }
 
     </style>
-    
+
     <div class="h">
         <?php
         $query1 = "select * from picture where username='$sessionvariable'  and profile='YES'";
@@ -850,9 +850,9 @@ $gen = $_SESSION['sex'];
                     echo"<a href=\"chat2.php?user=$sessionvariable\"><img src=\"img/$pic\" class=\"img-circle img-responsive\"></a>";
                 } else {
                     if ($gen == 'FEMALE') {
-                        echo"	<a href=\"chat2.php?user=$sessionvariable\">	<img src=\"images/female.jpg\" class=\"img-rounded\" width=\"250px\" height=\"200px\"/></a>";
+                        echo"	<a href=\"chat2.php?user=$sessionvariable\"><img src=\"images/female.jpg\" class=\"img-rounded\" width=\"250px\" height=\"200px\"/></a>";
                     } else {
-                        echo"		<a href=\"chat2.php?user=$sessionvariable\"><img src=\"images/male.png\" class=\"img-rounded\" width=\"250px\" height=\"200px\"/></a>";
+                        echo"<a href=\"chat2.php?user=$sessionvariable\"><img src=\"images/male.png\" class=\"img-rounded\" width=\"250px\" height=\"200px\"/></a>";
                     }
                 }
                 ?>
@@ -863,56 +863,53 @@ $gen = $_SESSION['sex'];
             <div  class="menu">
 
                 <div class=" head2">
-<?php
-if (mysql_num_rows($result1) > 0) {
-    $pic = $rec['img'];
-    echo"<a href=\"chat2.php?user=$sessionvariable\"><img src=\"img/$pic\" class=\"img-circle img-responsive\"></a>";
-} else {
-    if ($gen == 'FEMALE') {
-        echo"	<a href=\"chat2.php?user=$sessionvariable\">	<img src=\"images/female.jpg\" class=\"img-rounded\" width=\"250px\" height=\"200px\"/></a>";
-    } else {
-        echo"		<a href=\"chat2.php?user=$sessionvariable\"><img src=\"images/male.png\" class=\"img-rounded\" width=\"250px\" height=\"200px\"/></a>";
-    }
-}
-?>
+                    <?php
+                    if (mysql_num_rows($result1) > 0) {
+                        $pic = $rec['img'];
+                        echo"<a href=\"chat2.php?user=$sessionvariable\"><img src=\"img/$pic\" class=\"img-circle img-responsive\"></a>";
+                    } else {
+                        if ($gen == 'FEMALE') {
+                            echo"<a href=\"chat2.php?user=$sessionvariable\">	<img src=\"images/female.jpg\" class=\"img-rounded\" width=\"250px\" height=\"200px\"/></a>";
+                        } else {
+                            echo"<a href=\"chat2.php?user=$sessionvariable\"><img src=\"images/male.png\" class=\"img-rounded\" width=\"250px\" height=\"200px\"/></a>";
+                        }
+                    }
+                    ?>
                 </div>
                 <div class="">
                     <ul>
-                    <?php //echo "<li id=\"nam\"><a href=\"chat2.php?user=$sessionvariable\">$sessionvariable</a></li>";?>
+                        <?php //echo "<li id=\"nam\"><a href=\"chat2.php?user=$sessionvariable\">$sessionvariable</a></li>";?>
                         <li><a href="chat.php">chat page</a></li>
-                    <?php
-                    /*                     * friend request */
-                    $query51 = "SELECT friendlist.friendusername,friendlist.myusername,picture.img,picture.profile,registration.fullname,registration.username
-									  from friendlist
-										left join picture on friendlist.myusername=picture.username 
-										left join registration on friendlist.myusername=registration.username
-										where friendlist.status=0 and friendlist.friendusername='$like'
-									  and picture.profile='yes'";
-                    $result51 = mysql_query($query51);
-                    if (mysql_num_rows($result51) > 0) {
-                        $d = mysql_num_rows($result51);
-                        //echo "this'is' secon".$co;
-                        $cat = 'fashion';
-                        echo "<li><a href=\"#\">$d friend request </a>";
-                        echo "<div class=\"row friendl submenu\" id=\"fir\">";
-                        echo"<div class=\"col-md-12\" style=\"margin:0;padding:0;text-align:center;font-weight:bold;\">friend request</div>";
-                        while ($row51 = mysql_fetch_array($result51)) {
-                            echo"<div class=\"col-md-12 wrap\" style=\"margin:0;padding:0;\">
-											<a href=\"#\">&#967;</a>
-												<div class=\"col-md-6 pix2\" style=\"margin:0;padding:0\"><img src=\"img/{$row51['img']}\"/></div>
-												<div  class=\"col-md-6 \"style=\"width:12em;\">
-													{$row51['fullname']}</br>
-													<a href=\"chatprocess.php?friendusername2={$row51['myusername']}&&myusername2=$like&&cat=$cat&&sta=1\" style=\"background:green;color:black;font-weight:bold;margin-bottom:10px\">accept</a>
-													<a href=\"chatprocess.php?friendusername2={$row51['myusername']}&&myusername2=$like&&cat=$cat&&sta=2\" style=\"background:red;color:black;font-weight:bold;margin-bottom:10px\">reject</a>
-											</div>
-											</div>";
+                        <?php
+                        /** friend request */
+                        $query51 = "SELECT friendlist.friendusername,friendlist.myusername,picture.img,picture.profile,registration.fullname,registration.username
+                                from friendlist left join picture on friendlist.myusername=picture.username left join registration on friendlist.myusername=registration.username
+				where friendlist.status=0 and friendlist.friendusername='$like' and picture.profile='yes'";
+
+                        $result51 = mysql_query($query51);
+                        if (mysql_num_rows($result51) > 0) {
+                            $d = mysql_num_rows($result51);
+                            //echo "this'is' secon".$co;
+                            $cat = 'fashion';
+                            echo "<li><a href=\"#\">$d friend request </a>";
+                            echo "<div class=\"row friendl submenu\" id=\"fir\">";
+                            echo"<div class=\"col-md-12\" style=\"margin:0;padding:0;text-align:center;font-weight:bold;\">friend request</div>";
+                            while ($row51 = mysql_fetch_array($result51)) {
+                                echo"<div class=\"col-md-12 wrap\" style=\"margin:0;padding:0;\">
+				<a href=\"#\">&#967;</a><div class=\"col-md-6 pix2\" style=\"margin:0;padding:0\"><img src=\"img/{$row51['img']}\"/></div>
+                                        <div  class=\"col-md-6 \"style=\"width:12em;\">
+                                                {$row51['fullname']}</br>
+                                                <a href=\"chatprocess.php?friendusername2={$row51['myusername']}&&myusername2=$like&&cat=$cat&&sta=1\" style=\"background:green;color:black;font-weight:bold;margin-bottom:10px\">accept</a>
+                                                <a href=\"chatprocess.php?friendusername2={$row51['myusername']}&&myusername2=$like&&cat=$cat&&sta=2\" style=\"background:red;color:black;font-weight:bold;margin-bottom:10px\">reject</a>
+                                </div>
+                                </div>";
+                            }
+                            echo "</div>";
+                            echo"</li>";
+                        } else {
+                            echo "<li>friend request</li>";
                         }
-                        echo "</div>";
-                        echo"</li>";
-                    } else {
-                        echo "<li>friend request</li>";
-                    }
-                    ?>
+                        ?>
                         <!--	<li>message
                                         <div class="submenu">
                                                         <ul>
@@ -934,54 +931,54 @@ if (mysql_num_rows($result1) > 0) {
 
         </div>
         <div class="col-md-12 menu2">
-<?php
-echo "<ul>";
-echo"		<li><a href=\"uploadimage.php\">UPLOAD IMAGE</a></li>";
-echo"		<li><a href=\"buycredit.php\">BUY CREDIT</a></li>";
-$vip = "select * from vip where username='$sessionvariable'";
-$vip1 = mysql_query($vip);
-if (mysql_num_rows($vip1) > 0) {
-    echo"		<li><a href=\"vipupload.php\">VIP PHOTO</a></li>";
-} else {
-    echo"		<li><a href=\"vipcredit.php\">VIP PHOTO</a></li>";
-}
-echo"		<li><a href=\"request.php\">REQUEST PAYMENT</a></li>";
+            <?php
+            echo "<ul>";
+            echo"<li><a href=\"uploadimage.php\">UPLOAD IMAGE</a></li>";
+            echo"<li><a href=\"buycredit.php\">BUY CREDIT</a></li>";
+            $vip = "select * from vip where username='$sessionvariable'";
+            $vip1 = mysql_query($vip);
+            if (mysql_num_rows($vip1) > 0) {
+                echo"<li><a href=\"vipupload.php\">VIP PHOTO</a></li>";
+            } else {
+                echo"		<li><a href=\"vipcredit.php\">VIP PHOTO</a></li>";
+            }
+            echo"		<li><a href=\"request.php\">REQUEST PAYMENT</a></li>";
 //echo"		<li><a href=\"edit.php\">EDIT PROFILE</a></li>";
 // echo"		<li><a href=\"#\"><span class=\"glyphicon glyphicon-home\"></span>MY PAGE</a></li>";
-echo"		<li><a href=\"del.php\">PICTURE MANAGEMENT</a></li>";
+            echo"		<li><a href=\"del.php\">PICTURE MANAGEMENT</a></li>";
 
-echo"			<li><a href=\"msg.php\" >Support</a></li>";
+            echo"			<li><a href=\"msg.php\" >Support</a></li>";
 
-$query1 = "select * from msg where rec='$like' and state=0 ";
-$result1 = mysql_query($query1);
+            $query1 = "select * from msg where rec='$like' and state=0 ";
+            $result1 = mysql_query($query1);
 
-$a = mysql_num_rows($result1);
-echo"				<li><a href=\"noti.php\">{$a}Inbox</a></li>";
+            $a = mysql_num_rows($result1);
+            echo"<li><a href=\"noti.php\">{$a}Inbox</a></li>";
 
-echo"      </li>";
+            echo"      </li>";
 
-echo" </ul>";
-?>
+            echo" </ul>";
+            ?>
         </div>
     </div>
-            <?php
-            if (isset($_POST['submit'])) {
-                $post = test_input($_POST['post']);
-                $query1 = "select * from registration where username='$post'";
-                $result1 = mysql_query($query1);
-                if (mysql_num_rows($result1) > 0) {
-                    $rec = mysql_fetch_array($result1);
-                    $user = $rec['username'];
-                    header("location:chat2.php?user=$user");
-                } else {
-                    $nam = "user not found";
-                    echo "<div class=\"alert alert-danger\">";
-                    echo "	<strong>";
-                    echo "{$nam}";
-                    echo "	</strong>";
-                    echo "</div>";
-                    header('Refresh:2; url=chat.php');
-                }
-            }
-            ob_end_flush();
-            ?>
+    <?php
+    if (isset($_POST['submit'])) {
+        $post = test_input($_POST['post']);
+        $query1 = "select * from registration where username='$post'";
+        $result1 = mysql_query($query1);
+        if (mysql_num_rows($result1) > 0) {
+            $rec = mysql_fetch_array($result1);
+            $user = $rec['username'];
+            header("location:chat2.php?user=$user");
+        } else {
+            $nam = "user not found";
+            echo "<div class=\"alert alert-danger\">";
+            echo "	<strong>";
+            echo "{$nam}";
+            echo "	</strong>";
+            echo "</div>";
+            header('Refresh:2; url=chat.php');
+        }
+    }
+    ob_end_flush();
+    ?>

@@ -264,36 +264,36 @@ ob_end_flush();
         <script type="text/javascript" src="js/easing.js"></script>
         <!-- here stars scrolling icon -->
         <script type="text/javascript">
-                                $(document).ready(function () {
-                                    //$("p #vip").fadeIn(3000);
-                                    /*
-                                     var defaults = {
-                                     containerID: 'toTop', // fading element id
-                                     containerHoverID: 'toTopHover', // fading element hover id
-                                     scrollSpeed: 1200,
-                                     easingType: 'linear' 
-                                     };
-                                     */
-                                    $().UItoTop({easingType: 'easeOutQuart'});
-                                });
-                                var slideIndex = 0;
-                                slider();
-                                function slider() {
-                                    var i;
-                                    // var right = document.getElementsByClassName("rightcl");
-                                    var right = $(".rightcl");
-                                    for (i = 0; i < right.length; i++) {
-                                        right[i].style.display = "none";
-                                    }
-                                    slideIndex++;
-                                    if (slideIndex > right.length) {
-                                        slideIndex = 1
-                                    }
-                                    ///right[slideIndex-1].style.display = "block"; 
-                                    var element2 = right.eq(slideIndex - 1);
-                                    element2.fadeIn(3000);
-                                    setTimeout(slider, 5000);
-                                }
+            $(document).ready(function () {
+                //$("p #vip").fadeIn(3000);
+                /*
+                 var defaults = {
+                 containerID: 'toTop', // fading element id
+                 containerHoverID: 'toTopHover', // fading element hover id
+                 scrollSpeed: 1200,
+                 easingType: 'linear' 
+                 };
+                 */
+                $().UItoTop({easingType: 'easeOutQuart'});
+            });
+            var slideIndex = 0;
+            slider();
+            function slider() {
+                var i;
+                // var right = document.getElementsByClassName("rightcl");
+                var right = $(".rightcl");
+                for (i = 0; i < right.length; i++) {
+                    right[i].style.display = "none";
+                }
+                slideIndex++;
+                if (slideIndex > right.length) {
+                    slideIndex = 1
+                }
+                ///right[slideIndex-1].style.display = "block"; 
+                var element2 = right.eq(slideIndex - 1);
+                element2.fadeIn(3000);
+                setTimeout(slider, 5000);
+            }
         </script>
         <!-- //here ends scrolling icon -->
     </body>	

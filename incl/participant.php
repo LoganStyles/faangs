@@ -144,6 +144,7 @@ if (isset($_SESSION['username']) && ($_SESSION['status'] == 2)) {
     }
     echo"		<li><a href=\"del.php\" onmouseover=\"myFunction21()\"><span class=\"glyphicon glyphicon-plus\"></span>PICTURE MANAGEMENT</a></li>";
     echo"		<li><a href=\"edit.php\"><span class=\"glyphicon glyphicon-pencil\"></span>EDIT PROFILE</a></li>";
+     echo"		<li><a href=\"changepass.php\"><span class=\"glyphicon glyphicon-pencil\"></span>CHANGE PASSWORD</a></li>";
 
     echo" </ul>";
 }

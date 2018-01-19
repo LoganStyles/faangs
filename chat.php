@@ -351,130 +351,131 @@ cont();
             <?php
 
 //echo $_SESSION['username'];
-            function reply($messid) {
+function reply($messid) {
 //echo "this is $level";
-                $na11 = $_SESSION['username'];
-                $forum23 = "select * from forum_comment where parent_id like '$messid.%' order by parent_id asc";
+    $na11 = $_SESSION['username'];
+    $forum23 = "select * from forum_comment where parent_id like '$messid.%' order by parent_id asc";
 //echo "$messid";
-                $com231 = mysql_query($forum23);
-                while ($com23 = mysql_fetch_array($com231)) {
-                    $user23 = $com23['username'];
-                    $comment3 = $com23['comment'];
-                    $msg = $com23['parent_id'];
-                    $pid3 = $com23['id'];
-                    $level = $com23['level'];
-                    $level2 = $level + 1;
-                    $lev = $com23['level'];
-                    ////////////////////////////////////////////
-                    /** 	$for21="select * from forum_comment where level=$level2";
-                      $zo=mysql_query($for21);
-                      if(mysql_num_rows($zo)>0){
-                      while($zo1=mysql_fetch_array($zo)){
-                      $arr[]=$zo1['parent_id'];
-                      }
-                      //$messid=bio
-                      $las=end($arr);
-                      $l=$level2/100;
-                      //$msg=$las+$l;
-                      $pid3=$msg."/".$pid3;
-                      }
-                      //$set2="insert into forum_comment(level,parent_id)values()";
-                      //mysql_query($set2)
-                      $l=$level/100; */
-                    $pid3 = $msg . "/" . $pid3;
-                    if ($lev == 1) {               //echo "this is my $lev";
-                        ECHO "<DIV class=\"row  reply1\">";
-                    } else if ($lev == 2) {              //	echo "this is my $lev";
-                        ECHO "<DIV class=\"row  reply2\">";
-                    } else if ($lev == 3) {              //	echo "this is my $lev";
-                        ECHO "<DIV class=\"row  reply3\">";
-                    } else if ($lev == 4) {              //	echo "this is my $lev";
-                        ECHO "<DIV class=\"row  reply4\">";
-                    } else if ($lev == 5) {               //echo "this is my $lev";
-                        ECHO "<DIV class=\"row  reply5\">";
-                    }
-                    echo "<div class=\"col-md-2 repl\">";
-                    //echo $user23;
-                    $qu12 = "select * from picture where username='$user23' and profile='yes'";
-                    $result102 = mysql_query($qu12);
-                    $row301 = mysql_fetch_array($result102);
-                    if (mysql_num_rows($result102) > 0) {
-                        echo "<a href=\"chat2.php?user=$user23\"><img src=\"img/{$row301['img']}\" class=\"img-square img-responsive rmsg\"></a>";
-                    } else {
-                        $query102 = "select * from registration where username='$user23'";
-                        $result1002 = mysql_query($query102);
-                        $row3001 = mysql_fetch_array($result1002);
-                        if ($row3001['gender'] == "MALE") {
-                            echo "<a href=\"chat2.php?user=$user23\"<img src=\"images/male.png\" class=\"img-circle img-responsive rmsg\"></a>";
-                        } else {
-                            echo "<a href=\"chat2.php?user=$user23\"<img src=\"images/female.jpg\" class=\"img-circle img-responsive rmsg\"></a>";
-                        }
-                    }
-                    ECHO "</div>";
-                    ////////////////////////////////////////////////////////////////////////////////////////////////get the person comment													
-                    echo "<div class=\"col-md-8\" style=\"margin:0px;padding:0px;word-wrap: break-word;text-align:justify;text-transform:capitalize\">";
-                    ?>					
-                    <?php
-                    echo "								<h5 style=\"font-weight:bold;display:inline-block;font-size:1em;margin:0px;padding:0px;\">$user23</h5>							";
-                    echo"			                       $comment3";
-                    echo"							</div>";
-///////////////////////////////////////////////////////////////////////////////////////////////////////////set form to reply the comment							
-                    echo"							<div class=\"col-md-8 \" style=\"\">";
-                    ///////////////////////////////////////////////////////////////////////////////////////////like process
-                    $ruser = $_SESSION["username"];
-                    if (isset($_SESSION["username"]) && ($ruser == $user23)) {
-                        echo"									<a  class=\"rep111\" href=\"#\">Liked</a>";
-                    }
-                    if (isset($_SESSION["username"]) && ($ruser != $user23)) {
-                        $que101 = "select * from liketracker where imagename='{$com23['id']}' and member='$ruser'";
-                        $resul101 = mysql_query($que101);
-                        if (mysql_num_rows($resul101) > 0) {
-                            echo"<a  class=\"rep111\" href=\"#\">Liked</a>";
-                        } else {
-                            echo"<a  class=\"rep111\" href=\"chatprocess.php?id2={$com23['id']}&&poster=$user23&&user=$ruser\">Like</a>";
-                        }
-                    }
-                    if ($lev == 1) {
-                        echo"									<a  class=\"rep1\" href=\"#\">Reply</a>";
-                    }
-                    if ($lev == 2) {
-                        echo"									<a  class=\"rep2\" href=\"#\">Reply</a>";
-                    }
-                    $dateValue = $com23['date'];
-                    $time = strtotime($dateValue);
-                    $month = date("M-j", $time);
-                    echo"				<h6 style=\"display:inline-block;\"><span class=\"glyphicon glyphicon-time\"> $month									";
-                    echo "			at ";
-                    $s = $com23['time'];
-                    $times = strtotime($s);
-                    $tim = date('h:i A', $times);
-                    echo"			$tim</h6>					";
-                    if ($lev != 3) {
-                        if ($lev == 1) {
-                            echo"										<form class=\"navbar-form rep1\" role=\"search\" method=\"post\" action=\"chatprocess.php\">";
-                        }
-                        if ($lev == 2) {
-                            echo"										<form class=\"navbar-form rep2\" role=\"search\" method=\"post\" action=\"chatprocess.php\">";
-                        }
-                        echo"										<div class=\"input-group col-md-12\">
-																				<input type=\"hidden\" name=\"user\" value=\"$na11\"/>
-																				<input type=\"hidden\" name=\"com_id\" value=\"$pid3\"/>";
-                        $lev = $lev + 1;
-                        echo"												<input type=\"hidden\" name=\"level\" value=\"$lev \"/>
-																				<input type=\"text\" name=\"comm\" class=\"form-control\" placeholder=\"reply comment\">
-																				<div class=\"input-group-btn\">
-																					<button class=\"btn btn-default\" name=\"comment\" type=\"submit\"><i class=\"glyphicon glyphicon-exclamation-sign\"></i></button>
-																				</div>
-																			</div>
-								</form>";
-                    }
-                    echo"								</div>";
-                    echo"			
-												</div>";
-                }
+    $com231 = mysql_query($forum23);
+    while ($com23 = mysql_fetch_array($com231)) {
+        $user23 = $com23['username'];
+        $comment3 = $com23['comment'];
+        $msg = $com23['parent_id'];
+        $pid3 = $com23['id'];
+        $level = $com23['level'];
+        $level2 = $level + 1;
+        $lev = $com23['level'];
+        ////////////////////////////////////////////
+        /** 	$for21="select * from forum_comment where level=$level2";
+          $zo=mysql_query($for21);
+          if(mysql_num_rows($zo)>0){
+          while($zo1=mysql_fetch_array($zo)){
+          $arr[]=$zo1['parent_id'];
+          }
+          //$messid=bio
+          $las=end($arr);
+          $l=$level2/100;
+          //$msg=$las+$l;
+          $pid3=$msg."/".$pid3;
+          }
+          //$set2="insert into forum_comment(level,parent_id)values()";
+          //mysql_query($set2)
+          $l=$level/100; */
+        $pid3 = $msg . "/" . $pid3;
+        if ($lev == 1) {               //echo "this is my $lev";
+            ECHO "<DIV class=\"row  reply1\">";
+        } else if ($lev == 2) {              //	echo "this is my $lev";
+            ECHO "<DIV class=\"row  reply2\">";
+        } else if ($lev == 3) {              //	echo "this is my $lev";
+            ECHO "<DIV class=\"row  reply3\">";
+        } else if ($lev == 4) {              //	echo "this is my $lev";
+            ECHO "<DIV class=\"row  reply4\">";
+        } else if ($lev == 5) {               //echo "this is my $lev";
+            ECHO "<DIV class=\"row  reply5\">";
+        }
+        echo "<div class=\"col-md-2 repl\">";
+        //echo $user23;
+        $qu12 = "select * from picture where username='$user23' and profile='yes'";
+        $result102 = mysql_query($qu12);
+        $row301 = mysql_fetch_array($result102);
+        if (mysql_num_rows($result102) > 0) {
+            echo "<a href=\"chat2.php?user=$user23\"><img src=\"img/{$row301['img']}\" class=\"img-square img-responsive rmsg\"></a>";
+        } else {
+            $query102 = "select * from registration where username='$user23'";
+            $result1002 = mysql_query($query102);
+            $row3001 = mysql_fetch_array($result1002);
+            if ($row3001['gender'] == "MALE") {
+                echo "<a href=\"chat2.php?user=$user23\"<img src=\"images/male.png\" class=\"img-circle img-responsive rmsg\"></a>";
+            } else {
+                echo "<a href=\"chat2.php?user=$user23\"<img src=\"images/female.jpg\" class=\"img-circle img-responsive rmsg\"></a>";
             }
+        }
+        ECHO "</div>";
+        ////////////////////////////////////////////////////////////////////////////////////////////////get the person comment													
+        echo "<div class=\"col-md-8\" style=\"margin:0px;padding:0px;word-wrap: break-word;text-align:justify;text-transform:capitalize\">";
+?>					
+        <?php
+        echo "<h5 style=\"font-weight:bold;display:inline-block;font-size:1em;margin:0px;padding:0px;\">$user23</h5>							";
+        echo"$comment3";
+        echo"</div>";
+///////////////////////////////////////////////////////////////////////////////////////////////////////////set form to reply the comment							
+        echo"<div class=\"col-md-8 \" style=\"\">";
+        ///////////////////////////////////////////////////////////////////////////////////////////like process
+        $ruser = $_SESSION["username"];
+        if (isset($_SESSION["username"]) && ($ruser == $user23)) {
+            echo"<a  class=\"rep111\" href=\"#\">Liked</a>";
+        }
+        if (isset($_SESSION["username"]) && ($ruser != $user23)) {
+            $que101 = "select * from liketracker where imagename='{$com23['id']}' and member='$ruser'";
+            $resul101 = mysql_query($que101);
+            if (mysql_num_rows($resul101) > 0) {
+                echo"<a  class=\"rep111\" href=\"#\">Liked</a>";
+            } else {
+                echo"<a  class=\"rep111\" href=\"chatprocess.php?id2={$com23['id']}&&poster=$user23&&user=$ruser\">Like</a>";
+            }
+        }
+        if ($lev == 1) {
+            echo"<a  class=\"rep1\" href=\"#\">Reply</a>";
+        }
+        if ($lev == 2) {
+            echo"<a  class=\"rep2\" href=\"#\">Reply</a>";
+        }
+        $dateValue = $com23['date'];
+        $time = strtotime($dateValue);
+        $month = date("M-j", $time);
+        echo"<h6 style=\"display:inline-block;\"><span class=\"glyphicon glyphicon-time\"> $month									";
+        echo "at ";
+        $s = $com23['time'];
+        $times = strtotime($s);
+        $tim = date('h:i A', $times);
+        echo"	$tim</h6>";
+        if ($lev != 3) {
+            if ($lev == 1) {
+                echo"<form class=\"navbar-form rep1\" role=\"search\" method=\"post\" action=\"chatprocess.php\">";
+            }
+            if ($lev == 2) {
+                echo"<form class=\"navbar-form rep2\" role=\"search\" method=\"post\" action=\"chatprocess.php\">";
+            }
+            echo"<div class=\"input-group col-md-12\">
+                <input type=\"hidden\" name=\"user\" value=\"$na11\"/>
+                <input type=\"hidden\" name=\"com_id\" value=\"$pid3\"/>";
+                $lev = $lev + 1;
+                echo"<input type=\"hidden\" name=\"level\" value=\"$lev \"/>
+                                <input type=\"text\" name=\"comm\" class=\"form-control\" placeholder=\"reply comment\">
+                                <div class=\"input-group-btn\">
+                                        <button class=\"btn btn-default\" name=\"comment\" type=\"submit\"><i class=\"glyphicon glyphicon-exclamation-sign\"></i></button>
+                                </div>
+                        </div>
+                </form>";
+        }
+        echo"</div>";
+        echo"</div>";
+    }
+}
 
-//echo $larry[0][1];////////////////////////////////////////                                         full wrapper
+
+
+//echo $larry[0][1];////////////////////////////////////////full wrapper
             ?>
             <div class="row" id="fullwrapper">
                 <!---->
@@ -494,40 +495,40 @@ cont();
                         $pic = strtolower($pic);
                         //$pic='1.jpg';
                         //echo $pic;
-                        echo"		<li><img src=\"img/{$pic}\" class=\"img-square\" width=\"250px\" height=\"200px\"/></li>";
+                        echo"<li><img src=\"img/{$pic}\" class=\"img-square\" width=\"250px\" height=\"200px\"/></li>";
                     } else {
                         if ($gen == 'FEMALE') {
                             $pic22 = $pic22 + 2;
                             echo"		<li><img src=\"images/female.jpg\" class=\"img-rounded\" width=\"250px\" height=\"200px\"/></li>";
                         } else {
                             $pic22 = $pic22 + 3;
-                            echo"		<li><img src=\"images/male.png\" class=\"img-rounded\" width=\"250px\" height=\"200px\"/></li>";
+                            echo"<li><img src=\"images/male.png\" class=\"img-rounded\" width=\"250px\" height=\"200px\"/></li>";
                         }
                     }
-                    echo"		<li><a href=\"chat2.php?user=$contestant\"><span class=\"glyphicon glyphicon-user\"></span>PROFILE</a></li>";
-                    echo"		<li><a href=\"uploadimage.php\"><span class=\"glyphicon glyphicon-upload\"></span>UPLOAD IMAGE</a></li>";
+                    echo"<li><a href=\"chat2.php?user=$contestant\"><span class=\"glyphicon glyphicon-user\"></span>PROFILE</a></li>";
+                    echo"<li><a href=\"uploadimage.php\"><span class=\"glyphicon glyphicon-upload\"></span>UPLOAD IMAGE</a></li>";
                     $vip1 = mysql_query($vip);
                     if (mysql_num_rows($vip1) > 0) {
-                        echo"		<li><a href=\"vipupload.php\"><span class=\"glyphicon glyphicon-home\"></span>VIP PHOTO</a></li>";
+                        echo"<li><a href=\"vipupload.php\"><span class=\"glyphicon glyphicon-home\"></span>VIP PHOTO</a></li>";
                     } else {
-                        echo"		<li><a href=\"vipcredit.php\"><span class=\"glyphicon glyphicon-usd\"></span>VIP PHOTO</a></li>";
+                        echo"<li><a href=\"vipcredit.php\"><span class=\"glyphicon glyphicon-usd\"></span>VIP PHOTO</a></li>";
                     }
-                    echo"		<li><a href=\"buycredit.php\"><span class=\"glyphicon glyphicon-usd\"></span>BUY CREDIT</a></li>";
-                    echo"		<li><a href=\"request.php\"><span class=\"glyphicon glyphicon-usd\"></span>REQUEST PAYMENT</a></li>";
+                    echo"<li><a href=\"buycredit.php\"><span class=\"glyphicon glyphicon-usd\"></span>BUY CREDIT</a></li>";
+                    echo"<li><a href=\"request.php\"><span class=\"glyphicon glyphicon-usd\"></span>REQUEST PAYMENT</a></li>";
                     // echo"		<li><a href=\"#\"><span class=\"glyphicon glyphicon-home\"></span>MY PAGE</a></li>";
-                    echo"		<li><a href=\"del.php\"><span class=\"glyphicon glyphicon-plus\"></span>PICTURE MANAGEMENT</a></li>";
-                    echo"		<li><a href=\"edit.php\"><span class=\"glyphicon glyphicon-pencil\"></span>EDIT PROFILE</a></li>";
+                    echo"<li><a href=\"del.php\"><span class=\"glyphicon glyphicon-plus\"></span>PICTURE MANAGEMENT</a></li>";
+                    echo"<li><a href=\"edit.php\"><span class=\"glyphicon glyphicon-pencil\"></span>EDIT PROFILE</a></li>";
                     $user = $_SESSION['username'];
                     $query1 = "select * from msg where rec='$user' and state=0 ";
                     $result1 = mysql_query($query1);
                     $aaa = mysql_num_rows($result1);
-                    echo"		<li class=\"dropdown\" id=\"\">";
-                    echo"			<a href=\"#\" class=\"\"><span class=\"glyphicon glyphicon-envelope\">MESSAGE {$aaa}</a>";
-                    echo"			 <ul class=\"\" id=\"mydropdown1\">";
-                    echo"			<li><a href=\"msg.php\" >Support</a></li>";
-                    echo"				<li><a href=\"noti.php\" onmouseout=\"myFunction21()\">Inbox</a></li>";
-                    echo" 		</ul>";
-                    echo"      </li>";
+                    echo"<li class=\"dropdown\" id=\"\">";
+                    echo"<a href=\"#\" class=\"\"><span class=\"glyphicon glyphicon-envelope\">MESSAGE {$aaa}</a>";
+                    echo" <ul class=\"\" id=\"mydropdown1\">";
+                    echo"<li><a href=\"msg.php\" >Support</a></li>";
+                    echo"<li><a href=\"noti.php\" onmouseout=\"myFunction21()\">Inbox</a></li>";
+                    echo" </ul>";
+                    echo"</li>";
                     echo" </ul>";
                     ?>
                 </div>
@@ -586,33 +587,35 @@ cont();
                             $query12 = "select * from picture where username='$user' and profile='yes'";
                             $result12 = mysql_query($query12);
                             $row31 = mysql_fetch_array($result12);
+                            
                             if (mysql_num_rows($result12) > 0) {
                                 echo "<a href=\"chat2.php?user=$user\"><img src=\"img/{$row31['img']}\" class=\"img-square img-responsive\"></a>";
                             } else {
                                 $query12 = "select * from registration where username='$user'";
                                 $result12 = mysql_query($query12);
                                 $row31 = mysql_fetch_array($result12);
+                                
                                 if ($gen == 'MALE') {
                                     echo "<a href=\"chat2.php?user=$user\"><img src=\"images/male.png\" class=\"img-circle img-responsive\"></a>";
                                 } else {
                                     echo "<a href=\"chat2.php?user=$user\"><img src=\"images/female.jpg\" class=\"img-circle img-responsive\"></a>";
                                 }
                             }
-                            echo"		</div>";
+                            echo"</div>";
                             //////////////////////////////////////////////user and time
-                            echo"		<div class=\"col-md-7\" style=\"font-weight:bold;\">";
-                            echo"				{$row['username']}";
-                            echo"			</div>";
-                            echo"			<div class=\"col-md-7\" style=\"font-size:12px;font-weight:bold;\">";
+                            echo"<div class=\"col-md-7\" style=\"font-weight:bold;\">";
+                            echo"{$row['username']}";
+                            echo"</div>";
+                            echo"<div class=\"col-md-7\" style=\"font-size:12px;font-weight:bold;\">";
                             $dateValue = $row['date'];
                             $time = strtotime($dateValue);
                             echo $month = date("M-j", $time);
-                            echo "			at ";
+                            echo "at ";
                             $s = $row['time'];
                             $times = strtotime($s);
                             echo date('h:i A', $times);
-                            echo"			</div>";
-                            echo"		</div>";
+                            echo"</div>";
+                            echo"</div>";
                             //echo"end of head div";
                             $cat = $row['category'];
                             $messid = $row['id'];
@@ -620,7 +623,7 @@ cont();
                             $mes = $row['post_content'];
                             $mess = strtolower($mes);
                             //echo message div
-                            echo"	<div class=\"col-md-12\" style=\"display:block; word-wrap: break-word;text-align:justify;text-transform:capitalize\">{$mess}</div>";
+                            echo"<div class=\"col-md-12\" style=\"display:block; word-wrap: break-word;text-align:justify;text-transform:capitalize\">{$mess}</div>";
                             //echo //end message div
                             if ($row['image'] != "") {
                                 //echo image  div
@@ -640,11 +643,10 @@ cont();
                             ////////////////////////////////////////////////////////////////////////////////////////////////////////////reply
                             reply($messid);
                             //echo $messid;
-                            echo"			</div>";
+                            echo"</div>";
                             //echo"comment div";
-                            echo"		<div class=\"col-md-12 com\">
-											<form class=\"navbar-form\" role=\"search\" method=\"post\" action=\"chatprocess.php\">
-												<div class=\"input-group col-md-12\">";
+                            echo"<div class=\"col-md-12 com\"><form class=\"navbar-form\" role=\"search\" method=\"post\" action=\"chatprocess.php\">
+				<div class=\"input-group col-md-12\">";
                             $for2 = "select * from forum_comment where level=1 and parent_id like '$messid.%'";
                             $co231 = mysql_query($for2);
                             if (mysql_num_rows($co231) > 0) {
@@ -657,17 +659,18 @@ cont();
                                 $messid = $messid . ".1";
                             }
                             echo "<input type=\"hidden\" name=\"user\" value=\"$na1\"/><input type=\"hidden\" name=\"com_id\" value=\"$messid\"/>
-													<input type=\"hidden\" name=\"level\" value=\"1 \"/>
-													<input type=\"text\"name=\"comm\" class=\"form-control\" placeholder=\"make your comment\">
-													<div class=\"input-group-btn\">
-														<button class=\"btn btn-default\" name=\"comment\" type=\"submit\"><i class=\"glyphicon glyphicon-exclamation-sign\"></i></button>
-													</div>
-												</div>
-											</form>
-										</div>";
+                                    <input type=\"hidden\" name=\"level\" value=\"1 \"/>
+                                    <input type=\"text\"name=\"comm\" class=\"form-control\" placeholder=\"make your comment\">
+                                    <div class=\"input-group-btn\">
+                                    <button class=\"btn btn-default\" name=\"comment\" type=\"submit\">
+                                    <i class=\"glyphicon glyphicon-exclamation-sign\"></i>Post</button>
+                                                </div>
+                                        </div>
+                                    </form>
+                                </div>";
                             //echo"end comment div";
                             //echo "like div";
-                            echo "		<div class=\"col-md-12 com\"><h3 style=\"float:left\">";
+                            echo "<div class=\"col-md-12 com\"><h3 style=\"float:left\">";
                             if (isset($_SESSION["username"]) && ($na1 == $na2)) {
                                 echo "<h3 style=\"float:left\">Like</h3>";
                                 //echo"<h3 style=\"float:right\"><a href=\"#\">share</a></h3><br>";
@@ -691,7 +694,7 @@ cont();
                             //
 										//echo "<h3 style=\"float:left\">LiKe</h3><h3 style=\"float:right\"><a href=\"#\">share</a></h3><br>
                             //<h3 style=\"margin-left:0px;float:left;font-size:12px\">$like others and you Like</h3>
-                            echo"			</div>";
+                            echo"</div>";
                             /*                             * }	
                               else{
                               echo "<h3 style=\"float:left\">$like<a href=\"chatprocess.php?id=1&&username=$user&&liker=$like&&messid=$messid&&cat=$cat\">Like</a></h3>
@@ -736,27 +739,20 @@ cont();
                     ?>
                     <?php
                     $query5 = "SELECT  picture.img,picture.category,picture.username, registration.fullname,registration.model
-									  FROM picture 
-										left JOIN registration ON picture.username=registration.username 
-										where picture.profile='yes' and picture.username<>'$like'
-										AND
-								picture.username NOT IN( SELECT myusername from friendlist WHERE myusername='$like' or friendusername='$like')
-										AND
-								picture.username NOT IN( SELECT friendusername from friendlist WHERE myusername='$like' or friendusername='$like') limit 2";
+			FROM picture left JOIN registration ON picture.username=registration.username where picture.profile='yes' 
+                        and picture.username<>'$like'AND picture.username NOT IN( SELECT myusername from friendlist WHERE myusername='$like' or friendusername='$like')
+			AND picture.username NOT IN( SELECT friendusername from friendlist WHERE myusername='$like' or friendusername='$like') limit 2";
                     //$query="select * from friendlist where myusername<>''or friendusername<>";
                     $result5 = mysql_query($query5);
                     if (mysql_num_rows($result5) > 0) {
                         echo "<div class=\"row friendl\">";
                         echo"<div class=\"col-md-12\" style=\"margin:0;padding:0;text-align:center;font-weight:bold;\">Add like minded people</div>";
                         while ($row5 = mysql_fetch_array($result5)) {
-                            echo"<div class=\"col-md-12 wrap\" style=\"margin:0;padding:0;\">
-													<a href=\"#\">&#967;</a>
-												<div class=\"col-md-6 col-xs-12 col-sm-12 pix2\" style=\"margin:0;padding:0\"><img src=\"img/{$row5['img']}\"/></div>
-												<div  class=\"col-md-6 col-xs-12 col-sm-12\"style=\"width:12em;\">
-													{$row5['fullname']}</br>
-													<a href=\"chatprocess.php?friendusername={$row5['username']}&&myusername=$like&&cat=$cat\" style=\"background:teal;color:black;font-weight:bold;margin-bottom:10px\">add friend</a>
-												</div>
-											</div>";
+                            echo"<div class=\"col-md-12 wrap\" style=\"margin:0;padding:0;\"> <a href=\"#\">&#967;</a>
+				<div class=\"col-md-6 col-xs-12 col-sm-12 pix2\" style=\"margin:0;padding:0\"><img src=\"img/{$row5['img']}\"/></div>
+				<div  class=\"col-md-6 col-xs-12 col-sm-12\"style=\"width:12em;\">
+				{$row5['fullname']}</br><a href=\"chatprocess.php?friendusername={$row5['username']}&&myusername=$like&&cat=$cat\" style=\"background:teal;color:black;font-weight:bold;margin-bottom:10px\">add friend</a>
+				</div></div>";
                         }
                         echo "</div>";
                     }

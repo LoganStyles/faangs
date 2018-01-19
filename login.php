@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require_once("incl/cons.php");
 require_once("incl/function.php");
 require_once 'face/fbConfig.php';
@@ -33,8 +34,7 @@ cont();
                 $result1 = mysql_query($query1);
                 if (mysql_num_rows($result1) > 0) {
                     $rec = mysql_fetch_array($result1);
-                    echo $_SESSION['dir'];exit;
-                    print_r($rec);exit;
+                    
                     if ($rec['status'] == 2 and ! isset($_SESSION['dir'])) {
                         session_start();
                         $_SESSION['username'] = $rec['username'];
@@ -168,6 +168,7 @@ cont();
         <footer>
 <?php
 include("incl/footer.php");
+ob_end_flush;
 ?>
         </footer>
     </div>	

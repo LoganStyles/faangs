@@ -20,6 +20,19 @@ cont();
 
         <!-- Custom styles for this template -->
         <link href="css/sticky-footer-navbar.css" rel="stylesheet">
+        <style>
+            /*modify some plugin css:countdown & */
+            .countDown_interval_basic_cont_description{
+                color: #000;
+                font-weight: 1;
+            }
+            
+            .list-group-item.active{
+                background-color: #666;
+                border-color: #666;
+                font-weight: 600;
+            }
+        </style>
 
     <body style="background-color: #f5f5f5;">
 
@@ -56,7 +69,7 @@ cont();
                     </ul>
                     <form class="form-inline mt-2 mt-md-0">
                         <input name="fullname" placeholder="enter username of contestant" class="form-control mr-sm-2" type="text" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="submit1">Search</button>
+                        <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" name="submit1">Search</button>
                     </form>
                 </div>
             </nav>
@@ -84,7 +97,7 @@ cont();
 
         <div class="container-fluid">
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top: 7%;">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top: 4%;">
                 <!--<a class="navbar-brand" href="#">Navbar</a>-->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -124,6 +137,7 @@ cont();
                                         </li>-->
                     </ul>
                 </div>
+                <div class="display_timer"></div>
             </nav>
 
             <div class="row">
@@ -354,6 +368,24 @@ cont();
         <a href="https://seal.beyondsecurity.com/vulnerability-scanner-verification/faangs.com"><img src="https://seal.beyondsecurity.com/verification-images/faangs.com/vulnerability-scanner-2.gif" alt="Website Security Test" border="0" /></a>
             </div>
         </footer>
+        
+        <?php
+        
+        $query1 = "select * from contest where status='active'limit 1";
+        $result1 = mysql_query($query1);
+        if (mysql_num_rows($result1) > 0) {
+            $rec = mysql_fetch_array($result1);
+            $state = $rec['state'];
+            $contestname = $rec['contestname'];
+            $startdate = $rec['startdate'];
+            $enddate = $rec['enddate'];
+            if ($state == 'on') {
+                $state = 1;
+            } else {
+                $state = 2;
+            }
+        }
+    ?>
 
         <!-- Bootstrap core JavaScript
         ================================================== -->
@@ -363,5 +395,27 @@ cont();
         <!--<script src="js/vendor/popper.min.js"></script>-->
         <script src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/countDown.js"></script>
+        
+        <script>
+        var a = "<?php echo $enddate ?>";
+        var b = "<?php echo $state ?>";
+        var countDownDate = new Date(a).getTime();
+        
+        var cd = new Countdown({
+            cont: document.querySelector('.display_timer'),
+            endDate: countDownDate,
+            outputTranslation: {
+                year: 'Years',
+                week: 'Weeks',
+                day: 'Days',
+                hour: 'Hours',
+                minute: 'Minutes',
+                second: 'Seconds',
+            },
+            endCallback: null,
+            outputFormat: 'day|hour|minute|second',
+        });
+        cd.start();
+    </script>
     </body>
 </html>

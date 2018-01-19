@@ -1,4 +1,6 @@
 <?php
+ob_start();
+date_default_timezone_set('Africa/Lagos');
 require_once("incl/cons.php");
 require_once("incl/function.php");
 cont();
@@ -31,7 +33,7 @@ cont();
 
                     $_SESSION['admin'] = $rec['username'];
                     $_SESSION['status'] = $rec['status'];
-
+                    $_SESSION['admin_type']="main";
                     header('location:adminpage.php');
                     die();
                 } else {
@@ -40,6 +42,16 @@ cont();
                     $result12 = mysql_query($query12);
                     if ($rec2 = mysql_fetch_array($result12)) {
                         session_start();
+                        
+                        $_SESSION['admin_type']="sub";
+                        //store login for subadmin
+                        $usr=$rec2['username'];
+                        $now = date('Y-m-d H:i:s');
+                        $query_login = " INSERT into admin_logs(username,action,date_created)values('$usr','login','$now')";
+                        $k = mysql_query($query_login);
+                        if ($k) {
+
+                        }
 
                         $_SESSION['admin'] = $rec2['username'];
                         $_SESSION['status'] = $rec2['status'];
@@ -123,6 +135,7 @@ cont();
                 <footer>
 <?php
 include("incl/footer.php");
+ob_end_flush;
 ?>
                 </footer>
             </div>	
