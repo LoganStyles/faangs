@@ -51,6 +51,8 @@ cont();
                         </a>-->
 
                          <?php
+                         $curr_url="http://localhost/faangs2/chat_new.php";
+                         $curr_title="test title";
                          $content="";
                          $content.="<a href=\"chat2.php?user=$contestant\" class=\"list-group-item list-group-item-action\"><i class=\"fa fa-bars\" >&nbsp;&nbsp;Profile</i></a>";
                          $content.="<a href=\"uploadimage.php\" class=\"list-group-item list-group-item-action\"><i class=\"fa fa-briefcase\" >&nbsp;&nbsp;UPLOAD IMAGE</i></a>";
@@ -315,9 +317,11 @@ function reply($messid) {
         $content.="</div><button type=\"submit\" class=\"btn btn-secondary pull-right\" name=\"comment\">Post</button>";
         $content.="<div class=\"clearfix\"></div></form> </div></div></div>";
         $content.= "<div class=\"col-md-12 com\">";
+        $content.="<a href=\"http://www.facebook.com/sharer.php?u=".$curr_url."t=". $curr_title.">title=\"Facebook share button\" target=\"blank\">Share on Facebook</a>";
         if (isset($_SESSION["username"]) && ($na1 == $na2)) {
             $content.= "<h3 style=\"float:left\">Like</h3>";
         }
+        
         if (isset($_SESSION["username"]) && ($na1 != $na2)) {
             $que = "select * from liketracker where imagename='{$row['id']}' and member='$na1'";
             $resul = mysql_query($que);

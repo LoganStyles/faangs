@@ -1,5 +1,4 @@
 <?php
-$pagename="index";
 
 if (isset($_POST["submit"])) {
     //index();
@@ -63,17 +62,7 @@ cont();
     <body>
         <!-- banner -->
         <div class="banner jarallax">
-            <!--<div class="header">
-                    <div class="header-left">
-                            <div class="agileinfo-phone">
-                                    <p><i class="fa fa-volume-control-phone" aria-hidden="true"></i>+13472644062</p>
-                            </div>
-                            <div class="agileinfo-phone agileinfo-map">
-                                    <p><i class="fa fa-map-marker" aria-hidden="true"></i> 24 ETON ROAD BRONXVILLE NY 10708 NEW YORK USA.</p>
-                            </div>
-                            <div class="clearfix"> </div>
-                    </div>
-            </div>--->
+            
             <div class="w3-header-bottom">
                 <div class="w3layouts-logo">
                     <h1>
@@ -98,33 +87,30 @@ cont();
                                 <li><a href="contest.php?category=general">Contestants</a></li>
                                 <li><a href="contact.php">Contact us</a></li>
                                 <li><a href="part.php">HOW IT WORKS</a></li>
+                                 <?php
+                                        if (isset($_SESSION['username']) && ($_SESSION['status'] == 2)) {
+                                            echo "<li><a href=\"chat2.php?user={$_SESSION['username']}\" >Profile</a></li>";
+                                            echo "<li><a href=\"incl/outs.php\" >Sign-Out</a></li>";
+                                        }
+                                        if (isset($_SESSION['username']) && ($_SESSION['status'] == 1)) {
+                                            echo "<li><a href=\"participate.php\" >Profile</a></li>";
+                                            echo "<li><a href=\"incl/outs.php\" >Sign-Out</a></li>";
+                                        }
+                                        if (isset($_SESSION['admin'])) {
+                                            echo "<li><a href=\"adminpage.php\" >Dashboard</a></li>";
+                                            echo "<li><a href=\"incl/outs.php\" >Sign-Out</a></li>";
+                                        } ELSE IF (!isset($_SESSION['username'])) {
+                                            //echo 'inside index';exit;
+                                            echo "<li><a href=\"login.php\" >Login</a></li>";
+                                            echo "<li><a href=\"registration.php\" >Sign-up</a></li>";
+                                        }
+                                        ?>
                             </ul>	
                             <div class="clearfix"> </div>
                         </div>	
                     </nav>		
                 </div>
-                <div class="agileinfo-social-grids">
-                    <ul>
-<?php
-if (isset($_SESSION['username']) && ($_SESSION['status'] == 2)) {
-    echo "<li><a href=\"chat2.php?user={$_SESSION['username']}\" >Profile</a></li>";
-    echo "<li><a href=\"incl/outs.php\" >Sign-Out</a></li>";
-}
-if (isset($_SESSION['username']) && ($_SESSION['status'] == 1)) {
-    echo "<li><a href=\"participate.php\" >Profile</a></li>";
-    echo "<li><a href=\"incl/outs.php\" >Sign-Out</a></li>";
-}
-if (isset($_SESSION['admin'])) {
-    echo "<li><a href=\"adminpage.php\" >Dashboard</a></li>";
-    echo "<li><a href=\"incl/outs.php\" >Sign-Out</a></li>";
-} ELSE IF (!isset($_SESSION['username'])) {
-    //echo 'inside index';exit;
-    echo "<li><a href=\"login.php\" >Login</a></li>";
-    echo "<li><a href=\"registration.php\" >Sign-up</a></li>";
-}
-?>
-                    </ul>
-                </div>
+                
                 <div class="clearfix"> </div>
             </div>
             <div class="banner-info">
@@ -141,10 +127,8 @@ if (isset($_SESSION['admin'])) {
                                                 <!--<a href="#" data-toggle="modal" data-target="#myModal">Participate Now</a>-->
                                                 <script type="text/javascript">
                                                     $(window).on('load', function () {
-                                                        /*$('#myModal').modal('show');*/
                                                         $('#myModal').modal({backdrop: false, keyboard: false});
                                                         $('#myModal').css({"height": "38em"});
-                                                        //$("#vip").fadeIn(3000);
                                                         var slideInd = 0;
                                                         slider2();
                                                         function slider2() {
@@ -209,19 +193,25 @@ if (isset($_SESSION['admin'])) {
                                     <h4 class="modal-title" style="text-align:center;">TOP MODEL</h4>
                                 </div> 
                                 <div class="modal-body">
-                                    <div class="agileits-w3layouts-info">
-                                        <?php
-                                        $query4 = "select * from vip  order by rand()";
-                                        $res4 = mysql_query($query4);
-                                        if (mysql_num_rows($res4) > 0) {
-                                            while ($res41 = mysql_fetch_array($res4)) {
-                                                echo"<a href=\"chat2.php?user={$res41['username']}\"><img src=\"vip/{$res41['image']}\" class=\"islide\"  height=400/></a>	";
-                                            }
-                                        }
-                                        ?>
-                                        <?php
-                                        echo"	<p id=\"vip\" style=\"text-align:center;font-weight:bold;font-size:2em;\"><a href=\"modelg.php\">Book models</a></p>";
-                                        ?>
+                                    <table id="agileits-w3layouts-info">
+                                        <tr>
+                                          <td>
+                                              <?php
+                                                $query4 = "select * from vip  order by rand()";
+                                                $res4 = mysql_query($query4);
+                                                if (mysql_num_rows($res4) > 0) {
+                                                    while ($res41 = mysql_fetch_array($res4)) {
+                                                        echo"<a href=\"chat2.php?user={$res41['username']}\"><img src=\"vip/{$res41['image']}\" class=\"islide\"  height=400/></a>	";
+                                                    }
+                                                }
+
+                                                echo"	<p id=\"vip\" style=\"text-align:center;font-weight:bold;font-size:2em;\"><a href=\"modelg.php\">Book models</a></p>";
+                                                ?>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    <div class="">
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -265,22 +255,12 @@ ob_end_flush();
         <!-- here stars scrolling icon -->
         <script type="text/javascript">
             $(document).ready(function () {
-                //$("p #vip").fadeIn(3000);
-                /*
-                 var defaults = {
-                 containerID: 'toTop', // fading element id
-                 containerHoverID: 'toTopHover', // fading element hover id
-                 scrollSpeed: 1200,
-                 easingType: 'linear' 
-                 };
-                 */
                 $().UItoTop({easingType: 'easeOutQuart'});
             });
             var slideIndex = 0;
             slider();
             function slider() {
                 var i;
-                // var right = document.getElementsByClassName("rightcl");
                 var right = $(".rightcl");
                 for (i = 0; i < right.length; i++) {
                     right[i].style.display = "none";
@@ -289,7 +269,6 @@ ob_end_flush();
                 if (slideIndex > right.length) {
                     slideIndex = 1
                 }
-                ///right[slideIndex-1].style.display = "block"; 
                 var element2 = right.eq(slideIndex - 1);
                 element2.fadeIn(3000);
                 setTimeout(slider, 5000);
